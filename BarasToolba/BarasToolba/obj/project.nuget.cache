@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RgMyI5iahjY=",
+  "dgSpecHash": "o8qmMNFCssw=",
   "success": true,
-  "projectFilePath": "E:\\GitHub\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+  "projectFilePath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aap20\\.nuget\\packages\\bcmakecert\\2.0.9\\bcmakecert.2.0.9.nupkg.sha512",
     "C:\\Users\\aap20\\.nuget\\packages\\dotnetzip\\1.13.4\\dotnetzip.1.13.4.nupkg.sha512",

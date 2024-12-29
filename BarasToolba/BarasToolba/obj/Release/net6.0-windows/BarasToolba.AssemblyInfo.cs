@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("S4CBS")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50508e350f74c39524c4b629da10bfe7e89eb49e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("BarasToolba")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BarasToolba")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

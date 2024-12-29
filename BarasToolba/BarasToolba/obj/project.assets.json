@@ -1010,11 +1010,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GitHub\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "projectUniqueName": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
       "projectName": "BarasToolba",
-      "projectPath": "E:\\GitHub\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "projectPath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
       "packagesPath": "C:\\Users\\aap20\\.nuget\\packages\\",
-      "outputPath": "E:\\GitHub\\ArchiveTool\\BarasToolba\\BarasToolba\\obj\\",
+      "outputPath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\VScodeshared\\NuGetPackages"

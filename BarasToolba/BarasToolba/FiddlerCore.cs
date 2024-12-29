@@ -296,13 +296,19 @@ namespace BarasToolba
                         foreach (string killer in killersArray)
                         {
                             if (killer == Globals_Session.Game.userId)
+                            {
                                 Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Killer;
+                                Form.PlayerRole.Text = Globals_Session.Game.playerRole.ToString();
+                            }
                         }
 
                         foreach (string survivor in survivorsArray)
                         {
                             if (survivor == Globals_Session.Game.userId)
+                            {
                                 Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Survivor;
+                                Form.PlayerRole.Text = Globals_Session.Game.playerRole.ToString();
+                            }
                         }
 
                     }
