@@ -1,0 +1,13 @@
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.exe
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BasicFormatsForCore.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.deps.json
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.runtimeconfig.json
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.pdb
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BCMakeCert.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\DotNetZip.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\FiddlerCore.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\Telerik.NetworkConnections.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\Newtonsoft.Json.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\System.ComponentModel.Composition.dll
+E:\ArchiveTool\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\CranchyLib.Networking.dll

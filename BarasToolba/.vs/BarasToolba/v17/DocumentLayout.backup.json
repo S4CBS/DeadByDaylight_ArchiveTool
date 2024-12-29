@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\fiddlercore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|e:\\archivetool\\barastoolba\\barastoolba\\archives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\archives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|E:\\ArchiveTool\\BarasToolba\\barastoolba\\form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -29,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|e:\\archivetool\\barastoolba\\barastoolba\\launcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\launcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|e:\\archivetool\\barastoolba\\barastoolba\\archives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\archives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +46,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "BarasToolba",
               "DocumentMoniker": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
               "RelativeDocumentMoniker": "BarasToolba\\BarasToolba.csproj",
@@ -57,7 +57,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Launcher.cs",
               "DocumentMoniker": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\Launcher.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Launcher.cs",
@@ -69,19 +69,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "Archives.cs",
               "DocumentMoniker": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\Archives.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Archives.cs",
               "ToolTip": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\Archives.cs",
               "RelativeToolTip": "BarasToolba\\Archives.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAACMAAAAAAAAAAAAewDYAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-28T22:04:38.786Z"
+              "WhenOpened": "2024-12-28T22:04:38.786Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\Form.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Form.cs",
@@ -93,7 +94,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Form.Designer.cs",
               "DocumentMoniker": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\Form.Designer.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Form.Designer.cs",
@@ -106,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Form.cs",
               "DocumentMoniker": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\Form.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Form.cs",
@@ -124,14 +125,14 @@
               "RelativeDocumentMoniker": "BarasToolba\\FiddlerCore.cs",
               "ToolTip": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\FiddlerCore.cs",
               "RelativeToolTip": "BarasToolba\\FiddlerCore.cs",
-              "ViewState": "AgIAABkBAAAAAAAAAAAnwCwBAABiAAAAAAAAAA==",
+              "ViewState": "AgIAABUBAAAAAAAAAAAnwCwBAABuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-28T20:55:37.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\Program.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Program.cs",

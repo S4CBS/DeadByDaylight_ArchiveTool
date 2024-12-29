@@ -298,7 +298,7 @@ namespace BarasToolba
                             if (killer == Globals_Session.Game.userId)
                             {
                                 Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Killer;
-                                Form.PlayerRole.Text = Globals_Session.Game.playerRole.ToString();
+                                Form.PlayerRole.Text =  $"Роль: {Globals_Session.Game.playerRole.ToString()}";
                             }
                         }
 
@@ -307,7 +307,7 @@ namespace BarasToolba
                             if (survivor == Globals_Session.Game.userId)
                             {
                                 Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Survivor;
-                                Form.PlayerRole.Text = Globals_Session.Game.playerRole.ToString();
+                                Form.PlayerRole.Text = $"Роль: {Globals_Session.Game.playerRole.ToString()}";
                             }
                         }
 
