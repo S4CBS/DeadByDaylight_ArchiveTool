@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>BarasToolba.Program</StartupObject>
+    <ApplicationIcon>AppIcon-60_3x_car.ico</ApplicationIcon>
+    <Copyright>S4CBS</Copyright>
+    <PackageProjectUrl>https://github.com/S4CBS</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="AppIcon-60_3x_car.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCMakeCert" Version="2.0.9" />
+    <PackageReference Include="FiddlerCore5" Version="5.0.2" />
+    <PackageReference Include="FiddlerCore5.NetworkConnections" Version="0.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CranchyLib.Networking">
+      <HintPath>..\..\CranchyLib.Networking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
