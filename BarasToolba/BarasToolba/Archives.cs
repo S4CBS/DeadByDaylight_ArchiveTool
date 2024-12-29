@@ -3,7 +3,7 @@ using CranchyLib.Networking;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
-namespace Cursed_Market
+namespace BarasToolba
 {
     public static class Archives
     {
