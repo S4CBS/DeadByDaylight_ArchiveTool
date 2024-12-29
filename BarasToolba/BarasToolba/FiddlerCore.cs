@@ -487,12 +487,16 @@ namespace BarasToolba
                                 {
                                     Form.Quest.Text = "Текущее испытание:";
                                     Form.Progress.Text = "Прогресс:";
+                                    Form.Reward1.Text = "Нет награды";
+                                    Form.Reward2.Text = "Нет награды";
                                 }
                             }
                             else
                             {
                                 Form.Quest.Text = "Текущее испытание:";
                                 Form.Progress.Text = "Прогресс:";
+                                Form.Reward1.Text = "Нет награды";
+                                Form.Reward2.Text = "Нет награды";
                             }
                         }
                     }
