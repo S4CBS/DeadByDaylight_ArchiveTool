@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <Reference Include="CranchyLib.Networking">
-      <HintPath>..\..\CranchyLib.Networking.dll</HintPath>
+      <HintPath>..\CranchyLib.Networking.dll</HintPath>
     </Reference>
   </ItemGroup>
 

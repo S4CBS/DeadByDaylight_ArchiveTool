@@ -14,7 +14,7 @@
     "additionalProbingPaths": [
       "C:\\Users\\aap20\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\aap20\\.nuget\\packages",
-      "E:\\VScodeshared\\NuGetPackages"
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {
       "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,

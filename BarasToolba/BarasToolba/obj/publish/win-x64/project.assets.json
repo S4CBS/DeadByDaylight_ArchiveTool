@@ -650,6 +650,7 @@
       "path": "bcmakecert/2.0.9",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "EULA.txt",
         "THIRD-PARTY-NOTICES.txt",
         "bcmakecert.2.0.9.nupkg.sha512",
@@ -707,6 +708,7 @@
       "path": "fiddlercore5.networkconnections/0.2.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "EULA.txt",
         "THIRD-PARTY-NOTICES.txt",
         "fiddlercore5.networkconnections.0.2.0.nupkg.sha512",
@@ -1482,19 +1484,19 @@
   },
   "packageFolders": {
     "C:\\Users\\aap20\\.nuget\\packages\\": {},
-    "E:\\VScodeshared\\NuGetPackages": {}
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "projectUniqueName": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
       "projectName": "BarasToolba",
-      "projectPath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "projectPath": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
       "packagesPath": "C:\\Users\\aap20\\.nuget\\packages\\",
-      "outputPath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\obj\\publish\\win-x64\\",
+      "outputPath": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "E:\\VScodeshared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\aap20\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1507,7 +1509,7 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "E:\\ASK-DBD-DeadByDaylight-Unlocker-main\\FiddlerCoreLib": {},
+        "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\FiddlerCoreLib": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1575,6 +1577,10 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+            "version": "[6.0.36, 6.0.36]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Crossgen2.win-x64",
             "version": "[6.0.36, 6.0.36]"
           },
           {
