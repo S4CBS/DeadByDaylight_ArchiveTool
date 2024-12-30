@@ -1,6 +1,9 @@
 # ArchiveTool
 100% выполнение заданий в игре. Dead by daylight. hack. script. deadbydaylight. dbd. ArchiveTool. Скрипт для прохождение архивов.
 
+# Платформы:
+- Epic Games
+
 # Libs
 - CranchyLib.Networking
 - FiddlerCore5
