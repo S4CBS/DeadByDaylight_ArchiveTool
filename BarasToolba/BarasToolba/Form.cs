@@ -32,5 +32,10 @@ namespace BarasToolba
         {
             FiddlerCore.UpdateData();
         }
+
+        private void SpoofingRole_Click(object sender, EventArgs e)
+        {
+            Program.RoleSpoffer();
+        }
     }
 }

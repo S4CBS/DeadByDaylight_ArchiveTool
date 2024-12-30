@@ -84,12 +84,16 @@ namespace BarasToolba
     internal class FiddlerCore
     {
         private static string dataFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BarasToolba");
+        public static string wavFolderPath = Path.Combine(dataFolderPath, "completed.wav");
+        static HttpClient WC = new HttpClient();
+        private static string BaseDir = "https://raw.githubusercontent.com/S4CBS/ArchiveTool/main/internal/completed.wav";
         public static string GetDataFolderPath()
         {
             try
             {
                 if (!Directory.Exists(dataFolderPath))
                 {
+                    DwnloadSettings();
                     Directory.CreateDirectory(dataFolderPath);
                 }
 
@@ -99,6 +103,28 @@ namespace BarasToolba
             {
                 return null;
             }
+        }
+
+        async static Task DwnloadBytes(string url, string output)
+        {
+            try
+            {
+                byte[] fileBytes = await WC.GetByteArrayAsync(url);
+                await File.WriteAllBytesAsync(output, fileBytes);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        async static Task DwnloadSettings()
+        {
+            var downloadTasks = new List<Task>
+            {
+                DwnloadBytes(BaseDir, Path.Combine(dataFolderPath, "completed.wav"))
+            };
+
+            await Task.WhenAll(downloadTasks);
         }
 
         internal static class RootCertificate
@@ -125,6 +151,10 @@ namespace BarasToolba
 
                 return false;
             }
+
+
+
+
         }
 
         static FiddlerCore()
@@ -254,6 +284,8 @@ namespace BarasToolba
                     Form.Queue.Text = $"Очередь: xxx";
                 }
 
+                Globals_Session.Game.isInMatch = false;
+
                 Globals_Session.Game.matchId = null;
                 Globals_Session.Game.matchType = Globals_Session.Game.E_MatchType.None;
                 Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
@@ -316,6 +348,8 @@ namespace BarasToolba
                     {
                         if ((string)responseJson["status"] == "CLOSED" && (string)responseJson["reason"] == "closed")
                         {
+                            Form.PlayerRole.Text = "Роль: xxx";
+                            Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
                             if (Globals_Session.Game.isInMatch == false)
                             {
                                 if (responseJson.ContainsKey("props"))
@@ -511,6 +545,5 @@ namespace BarasToolba
                 MessageBox.Show("Cookie не получены!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }

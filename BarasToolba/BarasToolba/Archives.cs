@@ -2,6 +2,7 @@
 using CranchyLib.Networking;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Security.Permissions;
 
 namespace BarasToolba
 {
@@ -42,7 +43,6 @@ namespace BarasToolba
 
 
         public static S_MatchData lastSuccessfulMatch;
-
 
 
 
@@ -159,7 +159,11 @@ namespace BarasToolba
                         role = Globals_Session.Game.playerRole.ToString().ToLower() // We need player role to be written in lower case specifically!
                     });
 
+                    // Выполнение задания
                     var updateQuestProgressResponse = Networking.Post($"https://egs.live.bhvrdbd.com/api/v1/archives/stories/update/quest-progress-v3/", headers, requestBodyJson.ToString());
+                    Form.PlayerRole.Text = "Роль: xxx";
+                    Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
+                    Media.playSound();
 
                     if (updateQuestProgressResponse.statusCode == Networking.E_StatusCode.CONTINUE)
                     {

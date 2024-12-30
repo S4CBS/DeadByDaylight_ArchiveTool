@@ -38,6 +38,7 @@
             Reward2 = new Label();
             GetQuest = new Button();
             PlayerRole = new Label();
+            SpoofingRole = new Button();
             SuspendLayout();
             // 
             // Start
@@ -67,7 +68,7 @@
             Queue.ForeColor = Color.Indigo;
             Queue.Location = new Point(22, 138);
             Queue.Name = "Queue";
-            Queue.Size = new Size(77, 17);
+            Queue.Size = new Size(80, 17);
             Queue.TabIndex = 2;
             Queue.Text = "Очередь: xxx";
             Queue.Click += Queue_Click;
@@ -118,9 +119,9 @@
             // 
             // GetQuest
             // 
-            GetQuest.Location = new Point(170, 188);
+            GetQuest.Location = new Point(170, 193);
             GetQuest.Name = "GetQuest";
-            GetQuest.Size = new Size(153, 31);
+            GetQuest.Size = new Size(153, 26);
             GetQuest.TabIndex = 7;
             GetQuest.Text = "Получить данные";
             GetQuest.UseVisualStyleBackColor = true;
@@ -133,9 +134,19 @@
             PlayerRole.ForeColor = Color.Indigo;
             PlayerRole.Location = new Point(22, 179);
             PlayerRole.Name = "PlayerRole";
-            PlayerRole.Size = new Size(57, 17);
+            PlayerRole.Size = new Size(60, 17);
             PlayerRole.TabIndex = 8;
             PlayerRole.Text = "Роль: xxx";
+            // 
+            // SpoofingRole
+            // 
+            SpoofingRole.Location = new Point(354, 186);
+            SpoofingRole.Name = "SpoofingRole";
+            SpoofingRole.Size = new Size(142, 40);
+            SpoofingRole.TabIndex = 9;
+            SpoofingRole.Text = "Подменить роль\r\nдля квета\r\n";
+            SpoofingRole.UseVisualStyleBackColor = true;
+            SpoofingRole.Click += SpoofingRole_Click;
             // 
             // Form
             // 
@@ -143,6 +154,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(584, 231);
+            Controls.Add(SpoofingRole);
             Controls.Add(PlayerRole);
             Controls.Add(GetQuest);
             Controls.Add(Reward2);
@@ -166,6 +178,7 @@
         private Button Start;
         private Button Stop;
         private Button GetQuest;
+        private Button SpoofingRole;
         internal static Label PlayerRole;
         internal static Label Queue;
         internal static Label Quest;
