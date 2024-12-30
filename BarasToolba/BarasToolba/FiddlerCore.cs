@@ -348,8 +348,6 @@ namespace BarasToolba
                     {
                         if ((string)responseJson["status"] == "CLOSED" && (string)responseJson["reason"] == "closed")
                         {
-                            Form.PlayerRole.Text = "Роль: xxx";
-                            Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
                             if (Globals_Session.Game.isInMatch == false)
                             {
                                 if (responseJson.ContainsKey("props"))

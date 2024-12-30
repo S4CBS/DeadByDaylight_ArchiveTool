@@ -1,0 +1,13 @@
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.exe
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BasicFormatsForCore.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.deps.json
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.runtimeconfig.json
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BarasToolba.pdb
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\BCMakeCert.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\DotNetZip.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\FiddlerCore.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\Telerik.NetworkConnections.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\Newtonsoft.Json.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\System.ComponentModel.Composition.dll
+C:\Users\aap20\Desktop\dbd\BarasToolba\BarasToolba\bin\Release\net6.0-windows\publish\CranchyLib.Networking.dll
