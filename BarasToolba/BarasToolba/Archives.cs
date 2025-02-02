@@ -77,9 +77,10 @@ namespace BarasToolba
                             {
                                 specificRoleNodeData = activeNodeJson["survivorActiveNode"];
                             }
-                            else if (activeNodeJson.ContainsKey("killerActiveNode") && !activeNodeJson.ContainsKey("survivorActiveNode")){
+                            else if (activeNodeJson.ContainsKey("killerActiveNode")){
                                 specificRoleNodeData = activeNodeJson["killerActiveNode"];
                                 Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Killer;
+                                Form.PlayerRole.Text = "Роль: Killer";
                             }
                             else
                             {
@@ -93,10 +94,11 @@ namespace BarasToolba
                             {
                                 specificRoleNodeData = activeNodeJson["killerActiveNode"];
                             }
-                            else if (activeNodeJson.ContainsKey("survivorActiveNode") && !activeNodeJson.ContainsKey("killerActiveNode"))
+                            else if (activeNodeJson.ContainsKey("survivorActiveNode"))
                             {
-                                specificRoleNodeData = activeNodeJson["killerActiveNode"];
+                                specificRoleNodeData = activeNodeJson["survivorActiveNode"];
                                 Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Survivor;
+                                Form.PlayerRole.Text = "Роль: Survivor";
                             }
                             else
                             {
