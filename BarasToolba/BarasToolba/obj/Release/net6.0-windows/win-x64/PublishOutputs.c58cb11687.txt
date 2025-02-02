@@ -1,2 +1,7 @@
 D:\ArchiveToolpublish\BarasToolba.pdb
+D:\ArchiveToolpublish\D3DCompiler_47_cor3.dll
+D:\ArchiveToolpublish\PenImc_cor3.dll
+D:\ArchiveToolpublish\PresentationNative_cor3.dll
+D:\ArchiveToolpublish\vcruntime140_cor3.dll
+D:\ArchiveToolpublish\wpfgfx_cor3.dll
 D:\ArchiveToolpublish\BarasToolba.exe

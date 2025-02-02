@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mtRmmKSG7u8=",
+  "dgSpecHash": "lyqGkVYH2T4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+  "projectFilePath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aap20\\.nuget\\packages\\bcmakecert\\2.0.9\\bcmakecert.2.0.9.nupkg.sha512",
     "C:\\Users\\aap20\\.nuget\\packages\\dotnetzip\\1.13.4\\dotnetzip.1.13.4.nupkg.sha512",
@@ -31,8 +31,7 @@
     "C:\\Users\\aap20\\.nuget\\packages\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\aap20\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.36\\microsoft.netcore.app.runtime.win-x64.6.0.36.nupkg.sha512",
     "C:\\Users\\aap20\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.36\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.36.nupkg.sha512",
-    "C:\\Users\\aap20\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.36\\microsoft.aspnetcore.app.runtime.win-x64.6.0.36.nupkg.sha512",
-    "C:\\Users\\aap20\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\6.0.36\\microsoft.netcore.app.crossgen2.win-x64.6.0.36.nupkg.sha512"
+    "C:\\Users\\aap20\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.36\\microsoft.aspnetcore.app.runtime.win-x64.6.0.36.nupkg.sha512"
   ],
   "logs": []
 }

@@ -354,7 +354,8 @@ namespace BarasToolba
                                 {
                                     if ((string)responseJson["props"]["GameType"] == ":1") // GameType :1 - Custom Game. We do not want our Queue Status logic to apply to the custom match.
                                     {
-                                        Globals_Session.Game.matchType = Globals_Session.Game.E_MatchType.Custom;
+                                        // Globals_Session.Game.matchType = Globals_Session.Game.E_MatchType.Custom;
+                                        Globals_Session.Game.matchType = Globals_Session.Game.E_MatchType.Default;
                                     }
                                     else
                                     {
@@ -408,6 +409,10 @@ namespace BarasToolba
                     }
                 }
             }
+
+
+            // Попытка написать автопрокачку престижа
+
         }
 
 

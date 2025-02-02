@@ -1005,19 +1005,19 @@
   },
   "packageFolders": {
     "C:\\Users\\aap20\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "E:\\VScodeshared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "projectUniqueName": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
       "projectName": "BarasToolba",
-      "projectPath": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "projectPath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
       "packagesPath": "C:\\Users\\aap20\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\obj\\",
+      "outputPath": "E:\\ArchiveTool\\BarasToolba\\BarasToolba\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "E:\\VScodeshared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\aap20\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1030,7 +1030,7 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\FiddlerCoreLib": {},
+        "E:\\ASK-DBD-DeadByDaylight-Unlocker-main\\FiddlerCoreLib": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

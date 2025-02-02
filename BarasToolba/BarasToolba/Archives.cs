@@ -77,6 +77,10 @@ namespace BarasToolba
                             {
                                 specificRoleNodeData = activeNodeJson["survivorActiveNode"];
                             }
+                            else if (activeNodeJson.ContainsKey("killerActiveNode") && !activeNodeJson.ContainsKey("survivorActiveNode")){
+                                specificRoleNodeData = activeNodeJson["killerActiveNode"];
+                                Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Killer;
+                            }
                             else
                             {
                                 return new S_Quest(-1, null, null, -1, -1, null); // Something went wrong, return dummy quest data.
@@ -88,6 +92,11 @@ namespace BarasToolba
                             if (activeNodeJson.ContainsKey("killerActiveNode"))
                             {
                                 specificRoleNodeData = activeNodeJson["killerActiveNode"];
+                            }
+                            else if (activeNodeJson.ContainsKey("survivorActiveNode") && !activeNodeJson.ContainsKey("killerActiveNode"))
+                            {
+                                specificRoleNodeData = activeNodeJson["killerActiveNode"];
+                                Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Survivor;
                             }
                             else
                             {
