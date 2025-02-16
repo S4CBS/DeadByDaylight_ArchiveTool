@@ -211,7 +211,7 @@ namespace BarasToolba
 
         public static bool Start()
         {
-            // AllocConsole();
+            AllocConsole();
 
             if (EnsureRootCertificate() == false)
             {
@@ -272,6 +272,11 @@ namespace BarasToolba
             {
                 oSession.utilDecodeResponse();
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
+            }
+
+            if (oSession.uriContains("/api/v1/archives/stories/update/active-node-v3"))
+            {
+                UpdateData();
             }
 
             if (oSession.uriContains("/api/v1/queue"))
@@ -403,16 +408,22 @@ namespace BarasToolba
                                         Archives.S_MatchData matchData = new Archives.S_MatchData((string)matchId, (string)krakenMatchId);
                                         Archives.CompleteActiveQuest(matchData);
                                     }
+                                    else
+                                    {
+                                        matchId = eventData["matchmaking_session_guid"];
+
+                                        if (matchId != null && krakenMatchId != null)
+                                        {
+                                            Archives.S_MatchData matchData = new Archives.S_MatchData((string)matchId, (string)krakenMatchId);
+                                            Archives.CompleteActiveQuest(matchData);
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-
-
-            // Попытка написать автопрокачку престижа
-
         }
 
 
@@ -437,115 +448,136 @@ namespace BarasToolba
                             client.DefaultRequestHeaders.UserAgent.ParseAdd(Globals_Session.Game.user_agent);
 
                             // 1. Получение Story ID
-                            string urlGetStory = "https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId=Tome01";
+                            string urlGetStory = "https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/activeNode";
                             var response = client.GetAsync(urlGetStory).Result;
                             response.EnsureSuccessStatusCode();
                             var responseBody = response.Content.ReadAsStringAsync().Result;
 
                             var json = JObject.Parse(responseBody);
-                            var activeNodes = json["activeNodes"] as JArray;
+                            var activeNode = json["activeNode"] as JArray;
 
-                            if (activeNodes != null && activeNodes.Count > 0)
+                            string survNode = string.Empty;
+                            string killNode = string.Empty;
+
+                            try
                             {
-                                var data = activeNodes[0];
+                                var survivorActiveNode = json["survivorActiveNode"]["nodeId"];
 
-                                // Подготавливаем данные для следующего запроса
-                                var payload = new
+                                foreach (var data in activeNode)
                                 {
-                                    node = data
-                                };
-                                string payloadJson = JsonConvert.SerializeObject(payload);
-
-                                // 2. Обновление active-node-v3 (первый запрос)
-                                string urlUpdateNode = "https://egs.live.bhvrdbd.com/api/v1/archives/stories/update/active-node-v3";
-                                var content = new StringContent(payloadJson, Encoding.UTF8, "application/json");
-                                response = client.PostAsync(urlUpdateNode, content).Result;
-                                response.EnsureSuccessStatusCode();
-                                responseBody = response.Content.ReadAsStringAsync().Result;
-
-                                // 3. Повторный запрос с дополнительным заголовком
-                                client.DefaultRequestHeaders.Add("Block", "true");
-                                content = new StringContent(payloadJson, Encoding.UTF8, "application/json");
-                                response = client.PostAsync(urlUpdateNode, content).Result;
-                                response.EnsureSuccessStatusCode();
-                                responseBody = response.Content.ReadAsStringAsync().Result;
-
-                                // 4. Обработка ответа
-                                json = JObject.Parse(responseBody);
-                                var activeNodesFull = json["activeNodesFull"] as JArray;
-
-                                if (activeNodesFull != null && activeNodesFull.Count > 0)
-                                {
-                                    var activeNode = json["activeNodesFull"][0];
-                                    string storyId = data["storyId"].ToString();
-                                    string clientInfoId = activeNode["clientInfoId"].ToString();
-                                    int currentProgress = (int)activeNode["objectives"][0]["currentProgress"];
-                                    int neededProgression = (int)activeNode["objectives"][0]["neededProgression"];
-                                    var questEventId = activeNode["objectives"][0]["questEvent"][0];
-
-                                    var progress = neededProgression;
-
-                                    if (activeNode["rewards"] != null && activeNode["rewards"].HasValues)
+                                    if (data["nodeTreeCoordinate"]["nodeId"].ToString() == survivorActiveNode.ToString())
                                     {
-                                        var rewards = activeNode["rewards"].Take(2).ToList();
+                                        Form.Quest.Text = "Испытание: " + data["clientInfoId"].ToString();
+                                        Form.Progress.Text = "Прогресс: " + $"{data["objectives"][0]["currentProgress"]}/{data["objectives"][0]["neededProgression"]}";
 
-                                        if (rewards.Count > 0)
+                                        if (data["rewards"] != null && data["rewards"].HasValues)
                                         {
-                                            // Обновляем Reward1 первой наградой
-                                            Form.Reward1.Text = $"{rewards[0]["id"]} = {rewards[0]["amount"]}";
+
+                                            var rewards = data["rewards"].Take(2).ToList();
+
+                                            if (rewards.Count > 0)
+                                            {
+                                                // Обновляем Reward1 первой наградой
+                                                Form.Reward1.Text = $"{rewards[0]["id"]} = {rewards[0]["amount"]}";
+                                            }
+                                            else
+                                            {
+                                                // Если наград нет, очищаем Reward1
+                                                Form.Reward1.Text = "None";
+                                            }
+
+                                            if (rewards.Count > 1)
+                                            {
+                                                // Обновляем Reward2 второй наградой
+                                                Form.Reward2.Text = $"{rewards[1]["id"]} = {rewards[1]["amount"]}";
+                                            }
+                                            else
+                                            {
+                                                // Если только одна награда, очищаем Reward2
+                                                Form.Reward2.Text = "None";
+                                            }
+
                                         }
                                         else
                                         {
-                                            // Если наград нет, очищаем Reward1
-                                            Form.Reward1.Text = "Нет награды";
+                                            Form.Reward1.Text = "None";
+                                            Form.Reward2.Text = "None";
                                         }
 
-                                        if (rewards.Count > 1)
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Form.Quest.Text = "Испытание: None";
+                                Form.Progress.Text = "Прогресс: None";
+                                Form.Reward1.Text = "None";
+                                Form.Reward2.Text = "None";
+                            }
+
+                            try
+                            {
+                                var killerActiveNode = json["killerActiveNode"]["nodeId"];
+
+                                foreach (var data in activeNode)
+                                {
+                                    if (data["nodeTreeCoordinate"]["nodeId"].ToString() == killerActiveNode.ToString())
+                                    {
+                                        Form.KQuest.Text = "Испытание: " + data["clientInfoId"].ToString();
+                                        Form.KProgress.Text = "Прогресс: " + $"{data["objectives"][0]["currentProgress"]}/{data["objectives"][0]["neededProgression"]}";
+
+                                        if (data["rewards"] != null && data["rewards"].HasValues)
                                         {
-                                            // Обновляем Reward2 второй наградой
-                                            Form.Reward2.Text = $"{rewards[1]["id"]} = {rewards[1]["amount"]}";
+
+                                            var Krewards = data["rewards"].Take(2).ToList();
+
+                                            if (Krewards.Count > 0)
+                                            {
+                                                // Обновляем Reward1 первой наградой
+                                                Form.KReward1.Text = $"{Krewards[0]["id"]} = {Krewards[0]["amount"]}";
+                                            }
+                                            else
+                                            {
+                                                // Если наград нет, очищаем Reward1
+                                                Form.KReward1.Text = "None";
+                                            }
+
+                                            if (Krewards.Count > 1)
+                                            {
+                                                // Обновляем Reward2 второй наградой
+                                                Form.KReward2.Text = $"{Krewards[1]["id"]} = {Krewards[1]["amount"]}";
+                                            }
+                                            else
+                                            {
+                                                // Если только одна награда, очищаем Reward2
+                                                Form.KReward2.Text = "None";
+                                            }
+
                                         }
                                         else
                                         {
-                                            // Если только одна награда, очищаем Reward2
-                                            Form.Reward2.Text = "Нет награды";
+                                            Form.KReward1.Text = "None";
+                                            Form.KReward2.Text = "None";
                                         }
                                     }
-                                    else
-                                    {
-                                        Form.Reward1.Text = "Нет награды";
-                                        Form.Reward2.Text = "Нет награды";
-                                    }
+                                }
 
-                                    Form.Quest.Text = $"Текущее испытание: {clientInfoId} ({storyId})";
-                                    Form.Progress.Text = $"Прогресс: {currentProgress}/{neededProgression}";
-                                }
-                                else
-                                {
-                                    Form.Quest.Text = "Текущее испытание:";
-                                    Form.Progress.Text = "Прогресс:";
-                                    Form.Reward1.Text = "Нет награды";
-                                    Form.Reward2.Text = "Нет награды";
-                                }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                Form.Quest.Text = "Текущее испытание:";
-                                Form.Progress.Text = "Прогресс:";
-                                Form.Reward1.Text = "Нет награды";
-                                Form.Reward2.Text = "Нет награды";
-                            }
+                                Form.KQuest.Text = "Испытание: None";
+                                Form.KProgress.Text = "Прогресс: None";
+                                Form.KReward1.Text = "None";
+                                Form.KReward2.Text = "None";
+                            }   
+                            
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show($"Произошла ошибка: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
-            }
-            else
-            {
-                MessageBox.Show("Cookie не получены!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

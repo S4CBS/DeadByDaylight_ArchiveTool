@@ -35,7 +35,37 @@ namespace BarasToolba
 
         private void SpoofingRole_Click(object sender, EventArgs e)
         {
-            Program.RoleSpoffer();
+            
+        }
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Reward1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Progress_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Quest_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

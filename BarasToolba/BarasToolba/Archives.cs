@@ -180,6 +180,8 @@ namespace BarasToolba
                     {
                         lastSuccessfulMatch = matchData;
                     }
+
+                    FiddlerCore.UpdateData();
                 }
             }
         }
