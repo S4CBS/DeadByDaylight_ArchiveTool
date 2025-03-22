@@ -211,7 +211,7 @@ namespace BarasToolba
 
         public static bool Start()
         {
-            AllocConsole();
+            // AllocConsole();
 
             if (EnsureRootCertificate() == false)
             {
@@ -234,7 +234,7 @@ namespace BarasToolba
 
         public static void FiddlerToCatchBeforeRequest(Session oSession)
         {
-            if (oSession.uriContains("")){
+            if (oSession.uriContains("/login?token=")){
                 if (oSession.oRequest["User-Agent"].Length > 0)
                     Globals_Session.Game.user_agent = oSession.oRequest["User-Agent"];
 
@@ -259,6 +259,7 @@ namespace BarasToolba
                 if (oSession.oRequest["Cookie"].Length > 0)
                 {
                     Globals_Session.Game.bhvrSession = oSession.oRequest["Cookie"].Replace("bhvrSession=", string.Empty);
+                    UpdateData();
                 }
 
                 return;

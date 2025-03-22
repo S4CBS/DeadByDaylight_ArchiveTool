@@ -12,9 +12,9 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\aap20\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\aap20\\.nuget\\packages",
-      "E:\\VScodeshared\\NuGetPackages"
+      "C:\\Users\\fderdf\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\fderdf\\.nuget\\packages",
+      "E:\\VisualStudio\\Shared\\NuGetPackages"
     ],
     "configProperties": {
       "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
