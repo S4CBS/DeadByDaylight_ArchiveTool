@@ -65,6 +65,20 @@ def ActiveQuest(headers):
 def CreateNextQuestList(s, k, headers):
     xs = []
     Tomes = ['Tome22', 'Tome21', 'Tome20', 'Tome19', 'Tome18', 'Tome17', 'Tome16', 'Tome15', 'Tome14', 'Tome13', 'Tome12', 'Tome11', 'Tome10', 'Tome09', 'Tome08', 'Tome07', 'Tome06', 'Tome05', 'Tome04', 'Tome03', 'Tome02', 'Tome01']
+
+    if k != 0:
+        try:
+            Tomes.remove(k["storyId"])
+            Tomes.insert(0, k["storyId"])
+        except:
+            pass
+    if s != 0:
+        try:
+            Tomes.remove(s["storyId"])
+            Tomes.insert(0, s["storyId"])
+        except:
+            pass
+
     for Tome in Tomes:
         url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={Tome}"
         resp = requests.get(url=url, headers=headers, verify=False)
