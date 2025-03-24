@@ -1,5 +1,5 @@
 from support import *
 headers = getHeaders()
-s,k = ActiveQuest(headers)
-All_Quests = CreateNextQuestList(s, k, headers)
-PickNewQuest(s, k, All_Quests, headers)
+s_id, k_id = ActiveQuest(headers)
+all_quests = CreateNextQuestList(s_id, k_id, headers)
+PickNewQuest(s_id, k_id, all_quests, headers)

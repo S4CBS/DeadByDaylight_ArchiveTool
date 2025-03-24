@@ -1,5 +1,4 @@
-import threading
-from os import remove
+import time
 
 from importS import *
 
@@ -62,9 +61,12 @@ def ActiveQuest(headers):
 
     return survivor, killer
 
+
 def CreateNextQuestList(s, k, headers):
     xs = []
-    Tomes = ['Tome22', 'Tome21', 'Tome20', 'Tome19', 'Tome18', 'Tome17', 'Tome16', 'Tome15', 'Tome14', 'Tome13', 'Tome12', 'Tome11', 'Tome10', 'Tome09', 'Tome08', 'Tome07', 'Tome06', 'Tome05', 'Tome04', 'Tome03', 'Tome02', 'Tome01']
+    Tomes = ['Tome22', 'Tome21', 'Tome20', 'Tome19', 'Tome18', 'Tome17', 'Tome16', 'Tome15', 'Tome14', 'Tome13',
+             'Tome12', 'Tome11', 'Tome10', 'Tome09', 'Tome08', 'Tome07', 'Tome06', 'Tome05', 'Tome04', 'Tome03',
+             'Tome02', 'Tome01']
 
     if k != 0:
         try:
@@ -79,19 +81,33 @@ def CreateNextQuestList(s, k, headers):
         except:
             pass
 
-    for Tome in Tomes:
-        url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={Tome}"
+    def process_tome(tome, headers, k, s):
+        th = threading.Thread(target=time.sleep(1), daemon=True)
+        th.start()
+        th.join()
+        url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={tome}"
         resp = requests.get(url=url, headers=headers, verify=False)
         Rjson = resp.json()["listOfNodes"]
+        nodes = []
         for node in Rjson:
             if node["status"] == "open":
-                node = {
+                node_coord = {
                     "level": node["nodeTreeCoordinate"]["level"],
                     "nodeId": node["nodeTreeCoordinate"]["nodeId"],
                     "storyId": node["nodeTreeCoordinate"]["storyId"]
                 }
-                if node != k and node != s:
-                    xs.append(node)
+                if node_coord != k and node_coord != s:
+                    nodes.append(node_coord)
+        return nodes
+
+    # Запускаем параллельные запросы с сохранением порядка Tomes
+    with ThreadPoolExecutor(max_workers=12) as executor:
+        process_func = partial(process_tome, headers=headers, k=k, s=s)
+        results = executor.map(process_func, Tomes)
+
+        for result in results:
+            xs.extend(result)
+
     return xs
 
 def PickNewQuest(s, k, All_Quests, headers):
