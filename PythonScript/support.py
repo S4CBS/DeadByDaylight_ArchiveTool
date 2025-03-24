@@ -1,4 +1,5 @@
 import threading
+from os import remove
 
 from importS import *
 
@@ -94,10 +95,7 @@ def PickNewQuest(s, k, All_Quests, headers):
             resp = requests.post(url=url, headers=headers, verify=False, json=jsonBody)
 
             if resp.status_code == 200:
-                if k == 0:
-                    break
-                else:
-                    return
+                return
 
     if k == 0:
         for x in All_Quests:
