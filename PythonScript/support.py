@@ -82,7 +82,7 @@ def CreateNextQuestList(s, k, headers):
             pass
 
     def process_tome(tome, headers, k, s):
-        th = threading.Thread(target=time.sleep(2), daemon=True)
+        th = threading.Thread(target=time.sleep(3), daemon=True)
         th.start()
         th.join()
         url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={tome}"
