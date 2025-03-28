@@ -39,7 +39,7 @@
     &quot;git-widget-placeholder&quot;: &quot;&lt;unknown&gt;&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.support">
     <configuration name="TomeCreator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonScript" />
       <option name="ENV_FILES" value="" />

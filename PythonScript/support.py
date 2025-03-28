@@ -90,9 +90,8 @@ def CreateNextQuestList(s, k, headers):
                     "nodeId": node["nodeTreeCoordinate"]["nodeId"],
                     "storyId": node["nodeTreeCoordinate"]["storyId"]
                 }
-            if node != k and node != s:
-                xs.append(node)
-
+                if node != k and node != s:
+                    xs.append(node)
     return xs
 
 
