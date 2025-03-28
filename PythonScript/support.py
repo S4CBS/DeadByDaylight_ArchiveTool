@@ -1,5 +1,3 @@
-import time
-
 from importS import *
 
 # Paths
@@ -81,34 +79,22 @@ def CreateNextQuestList(s, k, headers):
         except:
             pass
 
-    def process_tome(tome, headers, k, s):
-        th = threading.Thread(target=time.sleep(3), daemon=True)
-        th.start()
-        th.join()
-        url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={tome}"
+    for Tome in Tomes:
+        url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={Tome}"
         resp = requests.get(url=url, headers=headers, verify=False)
         Rjson = resp.json()["listOfNodes"]
-        nodes = []
         for node in Rjson:
             if node["status"] == "open":
-                node_coord = {
+                node = {
                     "level": node["nodeTreeCoordinate"]["level"],
                     "nodeId": node["nodeTreeCoordinate"]["nodeId"],
                     "storyId": node["nodeTreeCoordinate"]["storyId"]
                 }
-                if node_coord != k and node_coord != s:
-                    nodes.append(node_coord)
-        return nodes
-
-    # Запускаем параллельные запросы с сохранением порядка Tomes
-    with ThreadPoolExecutor(max_workers=12) as executor:
-        process_func = partial(process_tome, headers=headers, k=k, s=s)
-        results = executor.map(process_func, Tomes)
-
-        for result in results:
-            xs.extend(result)
+            if node != k and node != s:
+                xs.append(node)
 
     return xs
+
 
 def PickNewQuest(s, k, All_Quests, headers):
     if s != 0 and k != 0:
