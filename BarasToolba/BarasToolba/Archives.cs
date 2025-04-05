@@ -2,6 +2,7 @@
 using CranchyLib.Networking;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Permissions;
 
 namespace BarasToolba
@@ -59,7 +60,7 @@ namespace BarasToolba
                 "Content-Type: application/json"
             };
 
-            var getActiveNodeResponse = Networking.Get($"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/activeNode", headers);
+            var getActiveNodeResponse = Networking.Get($"https://{Globals_Session.Game.PLT}/api/v1/archives/stories/get/activeNode", headers);
             if (getActiveNodeResponse.statusCode == Networking.E_StatusCode.OK)
             {
                 if (getActiveNodeResponse.content.IsJson())
@@ -171,7 +172,8 @@ namespace BarasToolba
                     });
 
                     // Выполнение задания
-                    var updateQuestProgressResponse = Networking.Post($"https://egs.live.bhvrdbd.com/api/v1/archives/stories/update/quest-progress-v3/", headers, requestBodyJson.ToString());
+                    var updateQuestProgressResponse = Networking.Post($"https://{Globals_Session.Game.PLT}/api/v1/archives/stories/update/quest-progress-v3/", headers, requestBodyJson.ToString());
+
                     Form.PlayerRole.Text = "Роль: xxx";
                     Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
                     Media.playSound();
@@ -180,7 +182,7 @@ namespace BarasToolba
                     {
                         lastSuccessfulMatch = matchData;
                     }
-
+                    Program.PickNewQuestAsync();
                     FiddlerCore.UpdateData();
                 }
             }

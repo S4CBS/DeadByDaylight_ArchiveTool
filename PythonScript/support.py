@@ -3,6 +3,13 @@ from importS import *
 # Paths
 pathToappdata = os.getenv("APPDATA")
 pathTocfg = os.path.join(pathToappdata, "BarasToolba", "cfg.json")
+pathToTomesList = os.path.join(pathToappdata, "BarasToolba", "tome.txt")
+
+def getTomeList():
+    with open(pathToTomesList, "r") as file:
+        f = file.readlines()
+    xs = [x.strip() for x in f]
+    return xs
 
 def getHeaders():
     with open(pathTocfg, "r") as file:
@@ -62,9 +69,7 @@ def ActiveQuest(headers):
 
 def CreateNextQuestList(s, k, headers):
     xs = []
-    Tomes = ['Tome22', 'Tome21', 'Tome20', 'Tome19', 'Tome18', 'Tome17', 'Tome16', 'Tome15', 'Tome14', 'Tome13',
-             'Tome12', 'Tome11', 'Tome10', 'Tome09', 'Tome08', 'Tome07', 'Tome06', 'Tome05', 'Tome04', 'Tome03',
-             'Tome02', 'Tome01']
+    Tomes = getTomeList()[::-1]
 
     for Tome in Tomes:
         url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={Tome}"
@@ -80,7 +85,6 @@ def CreateNextQuestList(s, k, headers):
                 if node != k and node != s:
                     xs.append(node)
     return xs
-
 
 def PickNewQuest(s, k, All_Quests, headers):
     if s != 0 and k != 0:

@@ -42,8 +42,11 @@
             labelKQuest = new Label();
             KQuest = new Label();
             KReward1 = new Label();
-            KProgress = new Label();
             KReward2 = new Label();
+            KProgress = new Label();
+            ListTomes = new ComboBox();
+            PriorityCheck = new CheckBox();
+            PlatformBox = new ComboBox();
             SuspendLayout();
             // 
             // Start
@@ -189,6 +192,7 @@
             KQuest.Size = new Size(77, 17);
             KQuest.TabIndex = 12;
             KQuest.Text = "Испытание:";
+            KQuest.Click += KQuest_Click;
             // 
             // KReward1
             // 
@@ -202,18 +206,6 @@
             KReward1.TabIndex = 13;
             KReward1.Text = "N/A";
             // 
-            // KProgress
-            // 
-            KProgress.AutoSize = true;
-            KProgress.BorderStyle = BorderStyle.FixedSingle;
-            KProgress.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            KProgress.ForeColor = Color.Indigo;
-            KProgress.Location = new Point(515, 165);
-            KProgress.Name = "KProgress";
-            KProgress.Size = new Size(66, 17);
-            KProgress.TabIndex = 14;
-            KProgress.Text = "Прогресс:";
-            // 
             // KReward2
             // 
             KReward2.AutoSize = true;
@@ -226,12 +218,63 @@
             KReward2.TabIndex = 15;
             KReward2.Text = "N/A";
             // 
+            // KProgress
+            // 
+            KProgress.AutoSize = true;
+            KProgress.BorderStyle = BorderStyle.FixedSingle;
+            KProgress.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            KProgress.ForeColor = Color.Indigo;
+            KProgress.Location = new Point(515, 165);
+            KProgress.Name = "KProgress";
+            KProgress.Size = new Size(66, 17);
+            KProgress.TabIndex = 14;
+            KProgress.Text = "Прогресс:";
+            // 
+            // ListTomes
+            // 
+            ListTomes.DropDownStyle = ComboBoxStyle.DropDownList;
+            ListTomes.ForeColor = Color.Indigo;
+            ListTomes.FormattingEnabled = true;
+            ListTomes.Location = new Point(419, 326);
+            ListTomes.Name = "ListTomes";
+            ListTomes.Size = new Size(216, 23);
+            ListTomes.Sorted = true;
+            ListTomes.TabIndex = 16;
+            ListTomes.SelectedIndexChanged += ListTomes_SelectedIndexChanged;
+            // 
+            // PriorityCheck
+            // 
+            PriorityCheck.AutoSize = true;
+            PriorityCheck.ForeColor = Color.Indigo;
+            PriorityCheck.Location = new Point(664, 328);
+            PriorityCheck.Name = "PriorityCheck";
+            PriorityCheck.Size = new Size(98, 19);
+            PriorityCheck.TabIndex = 18;
+            PriorityCheck.Text = "Priority Mode";
+            PriorityCheck.UseVisualStyleBackColor = false;
+            PriorityCheck.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // PlatformBox
+            // 
+            PlatformBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            PlatformBox.ForeColor = Color.Indigo;
+            PlatformBox.FormattingEnabled = true;
+            PlatformBox.Items.AddRange(new object[] { "Steam", "EGS" });
+            PlatformBox.Location = new Point(851, 326);
+            PlatformBox.Name = "PlatformBox";
+            PlatformBox.Size = new Size(121, 23);
+            PlatformBox.TabIndex = 19;
+            PlatformBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(984, 361);
+            Controls.Add(PlatformBox);
+            Controls.Add(PriorityCheck);
+            Controls.Add(ListTomes);
             Controls.Add(KReward2);
             Controls.Add(KProgress);
             Controls.Add(KReward1);
@@ -262,6 +305,9 @@
         private Button Start;
         private Button Stop;
         private Button GetQuest;
+        internal static Label KProgres2;
+        internal static CheckBox PriorityCheck;
+        internal static ComboBox ListTomes;
         internal static Label PlayerRole;
         internal static Label Queue;
         internal static Label Quest;
@@ -272,7 +318,8 @@
         internal static Label labelKQuest;
         internal static Label KQuest;
         internal static Label KReward1;
-        internal static Label KProgress;
         internal static Label KReward2;
+        internal static Label KProgress;
+        internal static ComboBox PlatformBox;
     }
 }

@@ -1,7 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Data;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using BarasToolba;
+using CranchyLib.Networking;
 using Fiddler;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,11 +30,13 @@ namespace BarasToolba
             }
 
 
-
+            public static JToken survivor = null;
+            public static JToken killer = null;
 
             public static string bhvrSession = null;
             public static string userId = null;
 
+            public static string PLT = null;
 
             public static bool isInQueue = false;
             public static bool isInMatch = false;
@@ -83,10 +88,17 @@ namespace BarasToolba
 
     internal class FiddlerCore
     {
+        private static int FloadListTomes = 0;
         private static string dataFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BarasToolba");
         public static string wavFolderPath = Path.Combine(dataFolderPath, "completed.wav");
+
+        public static string cfgQFolderPath = Path.Combine(dataFolderPath, "cfg.json");
+        public static string TomeQFolderPath = Path.Combine(dataFolderPath, "tome.txt");
+        public static string autoQFolderPath = Path.Combine(dataFolderPath, "auto.exe");
+
         static HttpClient WC = new HttpClient();
-        private static string BaseDir = "https://raw.githubusercontent.com/S4CBS/ArchiveTool/main/internal/completed.wav";
+        private static string BaseDir = "https://raw.githubusercontent.com/S4CBS/ArchiveTool/branch2/internal/completed.wav";
+        private static string autoBaseDir = "https://raw.githubusercontent.com/S4CBS/ArchiveTool/branch2/internal/auto.wav";
         public static string GetDataFolderPath()
         {
             try
@@ -95,6 +107,16 @@ namespace BarasToolba
                 {
                     DwnloadSettings();
                     Directory.CreateDirectory(dataFolderPath);
+                }
+
+                if (!File.Exists(cfgQFolderPath))
+                {
+                    File.Create(cfgQFolderPath);
+                }
+
+                if (!File.Exists(TomeQFolderPath))
+                {
+                    File.Create(TomeQFolderPath);
                 }
 
                 return Directory.Exists(dataFolderPath) ? dataFolderPath : null;
@@ -121,7 +143,8 @@ namespace BarasToolba
         {
             var downloadTasks = new List<Task>
             {
-                DwnloadBytes(BaseDir, Path.Combine(dataFolderPath, "completed.wav"))
+                DwnloadBytes(BaseDir, Path.Combine(dataFolderPath, "completed.wav")),
+                DwnloadBytes(autoBaseDir, Path.Combine(dataFolderPath, "auto.exe"))
             };
 
             await Task.WhenAll(downloadTasks);
@@ -213,28 +236,63 @@ namespace BarasToolba
         {
             // AllocConsole();
 
-            if (EnsureRootCertificate() == false)
+            if (Form.PlatformBox.SelectedItem != null)
             {
-                return false;
-            }
+                if (EnsureRootCertificate() == false)
+                {
+                    return false;
+                }
 
-            FiddlerApplication.Startup(new FiddlerCoreStartupSettingsBuilder().ListenOnPort(8888).RegisterAsSystemProxy().ChainToUpstreamGateway().DecryptSSL().OptimizeThreadPool().Build());
-            Launcher.LaunchDBD("EGS");
-            return FiddlerApplication.IsStarted();
+                FiddlerApplication.Startup(new FiddlerCoreStartupSettingsBuilder().ListenOnPort(8888).RegisterAsSystemProxy().ChainToUpstreamGateway().DecryptSSL().OptimizeThreadPool().Build());
+                Launcher.LaunchDBD(Form.PlatformBox.SelectedItem.ToString());
+                Program.Host(Form.PlatformBox.SelectedItem.ToString());
+                Form.PlatformBox.Enabled = false;
+                return FiddlerApplication.IsStarted();
+            }
+            else
+            {
+                MessageBox.Show("Выбирите платформу", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return !FiddlerApplication.IsStarted();
         }
 
         public static void Stop()
         {
             if (FiddlerApplication.IsStarted())
             {
-                FiddlerApplication.Shutdown();
-                Launcher.KillDBD("EGS");
+
+                if (Form.PlatformBox.SelectedItem != null)
+                {
+                    FiddlerApplication.Shutdown();
+                    Launcher.KillDBD(Form.PlatformBox.SelectedItem.ToString());
+
+                    Form.PriorityCheck.Enabled = true;
+                    Form.ListTomes.Items.Clear();
+
+                    Form.KQuest.Text = "Испытание: None";
+                    Form.KProgress.Text = "Прогресс: None";
+                    Form.KReward1.Text = "None";
+                    Form.KReward2.Text = "None";
+
+                    Form.Quest.Text = "Испытание: None";
+                    Form.Progress.Text = "Прогресс: None";
+                    Form.Reward1.Text = "None";
+                    Form.Reward2.Text = "None";
+
+                    Form.PlayerRole.Text = "Роль: xxx";
+                    Form.Queue.Text = $"Очередь: xxx";
+                    FloadListTomes = 0;
+                    Form.PriorityCheck.Checked = false;
+                    Globals_Session.Game.bhvrSession = null;
+                    Form.PlatformBox.Enabled = true;
+                    Globals_Session.Game.PLT = null;
+                }
             }
         }
 
         public static void FiddlerToCatchBeforeRequest(Session oSession)
         {
-            if (oSession.uriContains("/login?token=")){
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody")){
                 if (oSession.oRequest["User-Agent"].Length > 0)
                     Globals_Session.Game.user_agent = oSession.oRequest["User-Agent"];
 
@@ -260,6 +318,8 @@ namespace BarasToolba
                 {
                     Globals_Session.Game.bhvrSession = oSession.oRequest["Cookie"].Replace("bhvrSession=", string.Empty);
                     UpdateData();
+                    JsonHelper.SaveGameData();
+                    Form.PriorityCheck.Enabled = false;
                 }
 
                 return;
@@ -269,7 +329,7 @@ namespace BarasToolba
 
         public static void FiddlerToCatchAfterSessionComplete(Session oSession)
         {
-            if (oSession.uriContains("/login?token="))
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody"))
             {
                 oSession.utilDecodeResponse();
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
@@ -278,6 +338,209 @@ namespace BarasToolba
             if (oSession.uriContains("/api/v1/archives/stories/update/active-node-v3"))
             {
                 UpdateData();
+            }
+
+            if (oSession.uriContains("api/v1/archives/stories/get/story-status"))
+            {
+                if (FloadListTomes == 0)
+                {
+                    if (Form.Prioritet == 1)
+                    {
+                        oSession.utilDecodeResponse();
+                        string resp = oSession.GetResponseBodyAsString();
+
+                        if (string.IsNullOrEmpty(resp) == false)
+                        {
+                            if (resp.IsJson() == true)
+                            {
+                                JObject respJson = JObject.Parse(resp);
+
+                                if (respJson.ContainsKey("eventStories") && respJson.ContainsKey("regularStories"))
+                                {
+                                    JArray eventStories = (JArray)respJson["eventStories"];
+                                    JArray regularStories = (JArray)respJson["regularStories"];
+
+                                    foreach (JObject tome in regularStories)
+                                    {
+                                        JArray levelStatus = (JArray)tome["levelStatus"];
+                                        int count = 0;
+                                        foreach (JObject status in levelStatus)
+                                        {
+                                            if (status["status"].ToString() == "mastered")
+                                            {
+                                                count = count + 1;
+                                            }
+                                        }
+
+                                        if (count < 4)
+                                        {
+                                            Form.ListTomes.Items.Add(tome["id"]);
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                    foreach (JObject tome in eventStories)
+                                    {
+                                        JArray levelStatus = (JArray)tome["levelStatus"];
+                                        int count = 0;
+                                        foreach (JObject status in levelStatus)
+                                        {
+                                            if (status["status"].ToString() == "mastered")
+                                            {
+                                                count = count + 1;
+                                            }
+                                            if (status.ContainsKey("hasUnseenContent"))
+                                            {
+                                                if (status["hasUnseenContent"].ToString() == "True")
+                                                {
+                                                }
+                                                else
+                                                {
+                                                    if (count < 4)
+                                                    {
+                                                        Form.ListTomes.Items.Add(tome["id"]);
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (!respJson.ContainsKey("eventStories") && respJson.ContainsKey("regularStories"))
+                                {
+                                    JArray regularStories = (JArray)respJson["regularStories"];
+
+                                    foreach (JObject tome in regularStories)
+                                    {
+                                        JArray levelStatus = (JArray)tome["levelStatus"];
+                                        int count = 0;
+                                        foreach (JObject status in levelStatus)
+                                        {
+                                            if (status["status"].ToString() == "mastered")
+                                            {
+                                                count = count + 1;
+                                            }
+                                        }
+
+                                        if (count < 4)
+                                        {
+                                            Form.ListTomes.Items.Add(tome["id"]);
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (Form.Prioritet == 0)
+                    {
+                        Program.ClearFullFile(TomeQFolderPath);
+                        oSession.utilDecodeResponse();
+                        string resp = oSession.GetResponseBodyAsString();
+
+                        if (string.IsNullOrEmpty(resp) == false)
+                        {
+                            if (resp.IsJson() == true)
+                            {
+                                JObject respJson = JObject.Parse(resp);
+
+                                if (respJson.ContainsKey("eventStories") && respJson.ContainsKey("regularStories"))
+                                {
+                                    JArray eventStories = (JArray)respJson["eventStories"];
+                                    JArray regularStories = (JArray)respJson["regularStories"];
+
+                                    foreach (JObject tome in regularStories)
+                                    {
+                                        JArray levelStatus = (JArray)tome["levelStatus"];
+                                        int count = 0;
+                                        foreach (JObject status in levelStatus)
+                                        {
+                                            if (status["status"].ToString() == "mastered")
+                                            {
+                                                count = count + 1;
+                                            }
+                                        }
+
+                                        if (count < 4)
+                                        {
+                                            Form.ListTomes.Items.Add(tome["id"]);
+                                            Program.Zapis(TomeQFolderPath, tome["id"].ToString());
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                    foreach (JObject tome in eventStories)
+                                    {
+                                        JArray levelStatus = (JArray)tome["levelStatus"];
+                                        int count = 0;
+                                        foreach (JObject status in levelStatus)
+                                        {
+                                            if (status["status"].ToString() == "mastered")
+                                            {
+                                                count = count + 1;
+                                            }
+                                            if (status.ContainsKey("hasUnseenContent"))
+                                            {
+                                                if (status["hasUnseenContent"].ToString() == "True")
+                                                {
+                                                }
+                                                else
+                                                {
+                                                    if (count < 4)
+                                                    {
+                                                        Form.ListTomes.Items.Add(tome["id"]);
+                                                        Program.Zapis(TomeQFolderPath, tome["id"].ToString());
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (!respJson.ContainsKey("eventStories") && respJson.ContainsKey("regularStories"))
+                                {
+                                    JArray regularStories = (JArray)respJson["regularStories"];
+
+                                    foreach (JObject tome in regularStories)
+                                    {
+                                        JArray levelStatus = (JArray)tome["levelStatus"];
+                                        int count = 0;
+                                        foreach (JObject status in levelStatus)
+                                        {
+                                            if (status["status"].ToString() == "mastered")
+                                            {
+                                                count = count + 1;
+                                            }
+                                        }
+
+                                        if (count < 4)
+                                        {
+                                            Form.ListTomes.Items.Add(tome["id"]);
+                                            Program.Zapis(TomeQFolderPath, tome["id"].ToString());
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             if (oSession.uriContains("/api/v1/queue"))
@@ -427,20 +690,22 @@ namespace BarasToolba
             }
         }
 
-
         public static void UpdateData()
         {
+            // Проверка наличия активной сессии
             if (Globals_Session.Game.bhvrSession != null)
             {
                 try
                 {
+                    // Настройка HTTP-клиента с отключенной проверкой SSL 
                     using (var handler = new HttpClientHandler())
                     {
-                        // Отключаем проверку SSL (не рекомендуется для продакшн)
+                        // Опасная настройка! Отключает проверку SSL-сертификатов
                         handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
 
                         using (var client = new HttpClient(handler))
                         {
+                            // Добавление заголовков для аутентификации и идентификации
                             client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
                             client.DefaultRequestHeaders.Add("x-kraken-analytics-session-id", Globals_Session.Game.client_kraken_session);
                             client.DefaultRequestHeaders.Add("x-kraken-client-platform", Globals_Session.Game.client_platform);
@@ -448,74 +713,80 @@ namespace BarasToolba
                             client.DefaultRequestHeaders.Add("x-kraken-client-os", Globals_Session.Game.client_os);
                             client.DefaultRequestHeaders.UserAgent.ParseAdd(Globals_Session.Game.user_agent);
 
-                            // 1. Получение Story ID
-                            string urlGetStory = "https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/activeNode";
-                            var response = client.GetAsync(urlGetStory).Result;
-                            response.EnsureSuccessStatusCode();
-                            var responseBody = response.Content.ReadAsStringAsync().Result;
+                            // Запрос данных об активных квестах
+                            string urlGetStory = $"https://{Globals_Session.Game.PLT}/api/v1/archives/stories/get/activeNode";
+                            var response = client.GetAsync(urlGetStory).Result; // Блокирующий вызов!
+                            response.EnsureSuccessStatusCode(); // Проверка HTTP 200 OK
+                            var responseBody = response.Content.ReadAsStringAsync().Result; // Синхронное чтение
 
+                            // Парсинг JSON-ответа
                             var json = JObject.Parse(responseBody);
-                            var activeNode = json["activeNode"] as JArray;
+                            var activeNode = json["activeNode"] as JArray; // Список всех доступных нод
 
+                            // Неиспользуемые переменные (возможно, остатки кода)
                             string survNode = string.Empty;
                             string killNode = string.Empty;
 
+                            // Обработка данных для выжившего
                             try
                             {
+                                // Получение активной ноды выжившего
                                 var survivorActiveNode = json["survivorActiveNode"]["nodeId"];
 
+                                // Поиск соответствующей ноды в общем списке
                                 foreach (var data in activeNode)
                                 {
+                                    // Сравнение идентификаторов нод
                                     if (data["nodeTreeCoordinate"]["nodeId"].ToString() == survivorActiveNode.ToString())
                                     {
+                                        // Обновление UI
                                         Form.Quest.Text = "Испытание: " + data["clientInfoId"].ToString();
                                         Form.Progress.Text = "Прогресс: " + $"{data["objectives"][0]["currentProgress"]}/{data["objectives"][0]["neededProgression"]}";
 
+                                        // Обработка наград
                                         if (data["rewards"] != null && data["rewards"].HasValues)
                                         {
-
                                             var rewards = data["rewards"].Take(2).ToList();
 
-                                            if (rewards.Count > 0)
-                                            {
-                                                // Обновляем Reward1 первой наградой
-                                                Form.Reward1.Text = $"{rewards[0]["id"]} = {rewards[0]["amount"]}";
-                                            }
-                                            else
-                                            {
-                                                // Если наград нет, очищаем Reward1
-                                                Form.Reward1.Text = "None";
-                                            }
+                                            // Первая награда
+                                            Form.Reward1.Text = rewards.Count > 0
+                                                ? $"{rewards[0]["id"]} = {rewards[0]["amount"]}"
+                                                : "None";
 
-                                            if (rewards.Count > 1)
-                                            {
-                                                // Обновляем Reward2 второй наградой
-                                                Form.Reward2.Text = $"{rewards[1]["id"]} = {rewards[1]["amount"]}";
-                                            }
-                                            else
-                                            {
-                                                // Если только одна награда, очищаем Reward2
-                                                Form.Reward2.Text = "None";
-                                            }
-
+                                            // Вторая награда
+                                            Form.Reward2.Text = rewards.Count > 1
+                                                ? $"{rewards[1]["id"]} = {rewards[1]["amount"]}"
+                                                : "None";
                                         }
                                         else
                                         {
+                                            // Сброс наград при их отсутствии
                                             Form.Reward1.Text = "None";
                                             Form.Reward2.Text = "None";
                                         }
-
                                     }
                                 }
+                                // Сохранение данных сессии
+                                Globals_Session.Game.survivor = new JObject
+                                {
+                                    ["level"] = json["survivorActiveNode"]["level"],
+                                    ["nodeId"] = json["survivorActiveNode"]["nodeId"],
+                                    ["storyId"] = json["survivorActiveNode"]["storyId"]
+                                };
                             }
                             catch (Exception ex)
                             {
+                                // Сброс UI при ошибках
                                 Form.Quest.Text = "Испытание: None";
                                 Form.Progress.Text = "Прогресс: None";
                                 Form.Reward1.Text = "None";
                                 Form.Reward2.Text = "None";
+
+                                // Очистка данных сессии
+                                Globals_Session.Game.survivor = null;
                             }
 
+                            // Обработка данных для убийцы (аналогично выжившему)
                             try
                             {
                                 var killerActiveNode = json["killerActiveNode"]["nodeId"];
@@ -524,36 +795,22 @@ namespace BarasToolba
                                 {
                                     if (data["nodeTreeCoordinate"]["nodeId"].ToString() == killerActiveNode.ToString())
                                     {
+                                        // Обновление UI для убийцы
                                         Form.KQuest.Text = "Испытание: " + data["clientInfoId"].ToString();
                                         Form.KProgress.Text = "Прогресс: " + $"{data["objectives"][0]["currentProgress"]}/{data["objectives"][0]["neededProgression"]}";
 
+                                        // Обработка наград убийцы
                                         if (data["rewards"] != null && data["rewards"].HasValues)
                                         {
-
                                             var Krewards = data["rewards"].Take(2).ToList();
 
-                                            if (Krewards.Count > 0)
-                                            {
-                                                // Обновляем Reward1 первой наградой
-                                                Form.KReward1.Text = $"{Krewards[0]["id"]} = {Krewards[0]["amount"]}";
-                                            }
-                                            else
-                                            {
-                                                // Если наград нет, очищаем Reward1
-                                                Form.KReward1.Text = "None";
-                                            }
+                                            Form.KReward1.Text = Krewards.Count > 0
+                                                ? $"{Krewards[0]["id"]} = {Krewards[0]["amount"]}"
+                                                : "None";
 
-                                            if (Krewards.Count > 1)
-                                            {
-                                                // Обновляем Reward2 второй наградой
-                                                Form.KReward2.Text = $"{Krewards[1]["id"]} = {Krewards[1]["amount"]}";
-                                            }
-                                            else
-                                            {
-                                                // Если только одна награда, очищаем Reward2
-                                                Form.KReward2.Text = "None";
-                                            }
-
+                                            Form.KReward2.Text = Krewards.Count > 1
+                                                ? $"{Krewards[1]["id"]} = {Krewards[1]["amount"]}"
+                                                : "None";
                                         }
                                         else
                                         {
@@ -562,22 +819,30 @@ namespace BarasToolba
                                         }
                                     }
                                 }
-
+                                Globals_Session.Game.killer = json["killerActiveNode"];
                             }
                             catch (Exception ex)
                             {
+                                // Сброс UI для убийцы
                                 Form.KQuest.Text = "Испытание: None";
                                 Form.KProgress.Text = "Прогресс: None";
                                 Form.KReward1.Text = "None";
                                 Form.KReward2.Text = "None";
-                            }   
-                            
+
+                                // Сохранение данных сессии
+                                Globals_Session.Game.killer = new JObject
+                                {
+                                    ["level"] = json["killerActiveNode"]["level"],
+                                    ["nodeId"] = json["killerActiveNode"]["nodeId"],
+                                    ["storyId"] = json["killerActiveNode"]["storyId"]
+                                };
+                            }
                         }
                     }
                 }
-                catch
+                catch // Глобальный перехватчик исключений (не рекомендуется)
                 {
-
+                    // Пустой блок catch - антипаттерн! Ошибки игнорируются
                 }
             }
         }
