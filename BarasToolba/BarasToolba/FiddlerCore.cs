@@ -286,6 +286,7 @@ namespace BarasToolba
                     Globals_Session.Game.bhvrSession = null;
                     Form.PlatformBox.Enabled = true;
                     Globals_Session.Game.PLT = null;
+                    Form.Prioritet = 0;
                 }
             }
         }
@@ -541,6 +542,7 @@ namespace BarasToolba
                         }
                     }
                 }
+                FloadListTomes = 1;
             }
 
             if (oSession.uriContains("/api/v1/queue"))

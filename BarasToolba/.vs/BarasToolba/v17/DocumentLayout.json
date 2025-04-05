@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\fiddlercore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|c:\\users\\fderdf\\desktop\\barassource\\barastoolba\\barastoolba\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\barastoolba\\form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|c:\\users\\fderdf\\desktop\\barassource\\barastoolba\\barastoolba\\archives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\archives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|c:\\users\\fderdf\\desktop\\barassource\\barastoolba\\barastoolba\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|solutionrelative:barastoolba\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0675468C-84E4-40F6-8057-FBD3D5744F99}|BarasToolba\\BarasToolba.csproj|c:\\users\\fderdf\\desktop\\barassource\\barastoolba\\barastoolba\\barastoolba.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
@@ -49,15 +49,14 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\Form.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Form.cs",
               "ToolTip": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\Form.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "RelativeToolTip": "BarasToolba\\Form.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T14:23:39.312Z",
-              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+              "WhenOpened": "2025-04-04T14:23:39.312Z"
             },
             {
               "$type": "Document",
@@ -69,8 +68,7 @@
               "RelativeToolTip": "BarasToolba\\Form.Designer.cs",
               "ViewState": "AgIAAB0BAAAAAAAAAAAAAEIBAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T13:19:17.289Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-04T13:19:17.289Z"
             },
             {
               "$type": "Document",
@@ -109,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Archives.cs",
               "DocumentMoniker": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\Archives.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Archives.cs",
@@ -139,20 +137,20 @@
               "RelativeDocumentMoniker": "BarasToolba\\FiddlerCore.cs",
               "ToolTip": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\FiddlerCore.cs",
               "RelativeToolTip": "BarasToolba\\FiddlerCore.cs",
-              "ViewState": "AgIAAOkAAAAAAAAAAAAvwP0AAABrAAAAAAAAAA==",
+              "ViewState": "AgIAAKUBAAAAAAAAAAAQwCACAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-28T20:55:37.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\Program.cs",
               "RelativeDocumentMoniker": "BarasToolba\\Program.cs",
               "ToolTip": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\Program.cs",
               "RelativeToolTip": "BarasToolba\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIkAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAuwI0AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-28T20:34:21.556Z"
             }
