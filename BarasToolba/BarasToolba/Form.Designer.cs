@@ -38,7 +38,15 @@
             Reward2 = new Label();
             GetQuest = new Button();
             PlayerRole = new Label();
-            SpoofingRole = new Button();
+            labelSQuest = new Label();
+            labelKQuest = new Label();
+            KQuest = new Label();
+            KReward1 = new Label();
+            KReward2 = new Label();
+            KProgress = new Label();
+            ListTomes = new ComboBox();
+            PriorityCheck = new CheckBox();
+            PlatformBox = new ComboBox();
             SuspendLayout();
             // 
             // Start
@@ -65,10 +73,11 @@
             // 
             Queue.AutoSize = true;
             Queue.BorderStyle = BorderStyle.FixedSingle;
+            Queue.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             Queue.ForeColor = Color.Indigo;
-            Queue.Location = new Point(22, 138);
+            Queue.Location = new Point(12, 304);
             Queue.Name = "Queue";
-            Queue.Size = new Size(80, 17);
+            Queue.Size = new Size(88, 19);
             Queue.TabIndex = 2;
             Queue.Text = "Очередь: xxx";
             Queue.Click += Queue_Click;
@@ -77,41 +86,48 @@
             // 
             Quest.AutoSize = true;
             Quest.BorderStyle = BorderStyle.FixedSingle;
+            Quest.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             Quest.ForeColor = Color.Indigo;
-            Quest.Location = new Point(170, 29);
+            Quest.Location = new Point(113, 111);
             Quest.Name = "Quest";
-            Quest.Size = new Size(74, 17);
+            Quest.Size = new Size(77, 17);
             Quest.TabIndex = 3;
             Quest.Text = "Испытание:";
+            Quest.Click += Quest_Click;
             // 
             // Progress
             // 
             Progress.AutoSize = true;
             Progress.BorderStyle = BorderStyle.FixedSingle;
+            Progress.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             Progress.ForeColor = Color.Indigo;
-            Progress.Location = new Point(170, 70);
+            Progress.Location = new Point(113, 165);
             Progress.Name = "Progress";
-            Progress.Size = new Size(65, 17);
+            Progress.Size = new Size(66, 17);
             Progress.TabIndex = 4;
             Progress.Text = "Прогресс:";
+            Progress.Click += Progress_Click;
             // 
             // Reward1
             // 
             Reward1.AutoSize = true;
             Reward1.BorderStyle = BorderStyle.FixedSingle;
+            Reward1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             Reward1.ForeColor = Color.Indigo;
-            Reward1.Location = new Point(170, 112);
+            Reward1.Location = new Point(114, 212);
             Reward1.Name = "Reward1";
             Reward1.Size = new Size(31, 17);
             Reward1.TabIndex = 5;
             Reward1.Text = "N/A";
+            Reward1.Click += Reward1_Click;
             // 
             // Reward2
             // 
             Reward2.AutoSize = true;
             Reward2.BorderStyle = BorderStyle.FixedSingle;
+            Reward2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             Reward2.ForeColor = Color.Indigo;
-            Reward2.Location = new Point(170, 152);
+            Reward2.Location = new Point(114, 258);
             Reward2.Name = "Reward2";
             Reward2.Size = new Size(31, 17);
             Reward2.TabIndex = 6;
@@ -119,7 +135,7 @@
             // 
             // GetQuest
             // 
-            GetQuest.Location = new Point(170, 193);
+            GetQuest.Location = new Point(216, 326);
             GetQuest.Name = "GetQuest";
             GetQuest.Size = new Size(153, 26);
             GetQuest.TabIndex = 7;
@@ -131,30 +147,140 @@
             // 
             PlayerRole.AutoSize = true;
             PlayerRole.BorderStyle = BorderStyle.FixedSingle;
+            PlayerRole.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             PlayerRole.ForeColor = Color.Indigo;
-            PlayerRole.Location = new Point(22, 179);
+            PlayerRole.Location = new Point(12, 335);
             PlayerRole.Name = "PlayerRole";
-            PlayerRole.Size = new Size(60, 17);
+            PlayerRole.Size = new Size(72, 22);
             PlayerRole.TabIndex = 8;
             PlayerRole.Text = "Роль: xxx";
             // 
-            // SpoofingRole
+            // labelSQuest
             // 
-            SpoofingRole.Location = new Point(354, 186);
-            SpoofingRole.Name = "SpoofingRole";
-            SpoofingRole.Size = new Size(142, 40);
-            SpoofingRole.TabIndex = 9;
-            SpoofingRole.Text = "Подменить роль\r\nдля квета\r\n";
-            SpoofingRole.UseVisualStyleBackColor = true;
-            SpoofingRole.Click += SpoofingRole_Click;
+            labelSQuest.AutoSize = true;
+            labelSQuest.BorderStyle = BorderStyle.FixedSingle;
+            labelSQuest.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            labelSQuest.ForeColor = Color.Indigo;
+            labelSQuest.Location = new Point(114, 49);
+            labelSQuest.Name = "labelSQuest";
+            labelSQuest.Size = new Size(152, 27);
+            labelSQuest.TabIndex = 10;
+            labelSQuest.Text = "Survivor Quest:";
+            labelSQuest.Click += label1_Click;
+            // 
+            // labelKQuest
+            // 
+            labelKQuest.AutoSize = true;
+            labelKQuest.BorderStyle = BorderStyle.FixedSingle;
+            labelKQuest.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            labelKQuest.ForeColor = Color.Indigo;
+            labelKQuest.Location = new Point(515, 51);
+            labelKQuest.Name = "labelKQuest";
+            labelKQuest.Size = new Size(120, 27);
+            labelKQuest.TabIndex = 11;
+            labelKQuest.Text = "Killer Quest:";
+            labelKQuest.Click += label2_Click;
+            // 
+            // KQuest
+            // 
+            KQuest.AutoSize = true;
+            KQuest.BorderStyle = BorderStyle.FixedSingle;
+            KQuest.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            KQuest.ForeColor = Color.Indigo;
+            KQuest.Location = new Point(515, 111);
+            KQuest.Name = "KQuest";
+            KQuest.Size = new Size(77, 17);
+            KQuest.TabIndex = 12;
+            KQuest.Text = "Испытание:";
+            KQuest.Click += KQuest_Click;
+            // 
+            // KReward1
+            // 
+            KReward1.AutoSize = true;
+            KReward1.BorderStyle = BorderStyle.FixedSingle;
+            KReward1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            KReward1.ForeColor = Color.Indigo;
+            KReward1.Location = new Point(515, 212);
+            KReward1.Name = "KReward1";
+            KReward1.Size = new Size(31, 17);
+            KReward1.TabIndex = 13;
+            KReward1.Text = "N/A";
+            // 
+            // KReward2
+            // 
+            KReward2.AutoSize = true;
+            KReward2.BorderStyle = BorderStyle.FixedSingle;
+            KReward2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            KReward2.ForeColor = Color.Indigo;
+            KReward2.Location = new Point(515, 258);
+            KReward2.Name = "KReward2";
+            KReward2.Size = new Size(31, 17);
+            KReward2.TabIndex = 15;
+            KReward2.Text = "N/A";
+            // 
+            // KProgress
+            // 
+            KProgress.AutoSize = true;
+            KProgress.BorderStyle = BorderStyle.FixedSingle;
+            KProgress.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            KProgress.ForeColor = Color.Indigo;
+            KProgress.Location = new Point(515, 165);
+            KProgress.Name = "KProgress";
+            KProgress.Size = new Size(66, 17);
+            KProgress.TabIndex = 14;
+            KProgress.Text = "Прогресс:";
+            // 
+            // ListTomes
+            // 
+            ListTomes.DropDownStyle = ComboBoxStyle.DropDownList;
+            ListTomes.ForeColor = Color.Indigo;
+            ListTomes.FormattingEnabled = true;
+            ListTomes.Location = new Point(419, 326);
+            ListTomes.Name = "ListTomes";
+            ListTomes.Size = new Size(216, 23);
+            ListTomes.Sorted = true;
+            ListTomes.TabIndex = 16;
+            ListTomes.SelectedIndexChanged += ListTomes_SelectedIndexChanged;
+            // 
+            // PriorityCheck
+            // 
+            PriorityCheck.AutoSize = true;
+            PriorityCheck.ForeColor = Color.Indigo;
+            PriorityCheck.Location = new Point(664, 328);
+            PriorityCheck.Name = "PriorityCheck";
+            PriorityCheck.Size = new Size(98, 19);
+            PriorityCheck.TabIndex = 18;
+            PriorityCheck.Text = "Priority Mode";
+            PriorityCheck.UseVisualStyleBackColor = false;
+            PriorityCheck.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // PlatformBox
+            // 
+            PlatformBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            PlatformBox.ForeColor = Color.Indigo;
+            PlatformBox.FormattingEnabled = true;
+            PlatformBox.Items.AddRange(new object[] { "Steam", "EGS" });
+            PlatformBox.Location = new Point(851, 326);
+            PlatformBox.Name = "PlatformBox";
+            PlatformBox.Size = new Size(121, 23);
+            PlatformBox.TabIndex = 19;
+            PlatformBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
-            ClientSize = new Size(584, 231);
-            Controls.Add(SpoofingRole);
+            ClientSize = new Size(984, 361);
+            Controls.Add(PlatformBox);
+            Controls.Add(PriorityCheck);
+            Controls.Add(ListTomes);
+            Controls.Add(KReward2);
+            Controls.Add(KProgress);
+            Controls.Add(KReward1);
+            Controls.Add(KQuest);
+            Controls.Add(labelKQuest);
+            Controls.Add(labelSQuest);
             Controls.Add(PlayerRole);
             Controls.Add(GetQuest);
             Controls.Add(Reward2);
@@ -165,10 +291,11 @@
             Controls.Add(Stop);
             Controls.Add(Start);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximumSize = new Size(600, 270);
-            MinimumSize = new Size(600, 270);
+            MaximumSize = new Size(1000, 400);
+            MinimumSize = new Size(1000, 400);
             Name = "Form";
             Text = "BarasToolba";
+            Load += Form_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -178,12 +305,21 @@
         private Button Start;
         private Button Stop;
         private Button GetQuest;
-        private Button SpoofingRole;
+        internal static Label KProgres2;
+        internal static CheckBox PriorityCheck;
+        internal static ComboBox ListTomes;
         internal static Label PlayerRole;
         internal static Label Queue;
         internal static Label Quest;
         internal static Label Progress;
         internal static Label Reward1;
         internal static Label Reward2;
+        internal static Label labelSQuest;
+        internal static Label labelKQuest;
+        internal static Label KQuest;
+        internal static Label KReward1;
+        internal static Label KReward2;
+        internal static Label KProgress;
+        internal static ComboBox PlatformBox;
     }
 }

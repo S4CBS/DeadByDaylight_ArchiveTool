@@ -1483,23 +1483,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aap20\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\fderdf\\.nuget\\packages\\": {},
+    "E:\\VisualStudio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "projectUniqueName": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
       "projectName": "BarasToolba",
-      "projectPath": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
-      "packagesPath": "C:\\Users\\aap20\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\BarasToolba\\obj\\publish\\win-x64\\",
+      "projectPath": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+      "packagesPath": "C:\\Users\\fderdf\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "E:\\VisualStudio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\aap20\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fderdf\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1509,7 +1509,7 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Users\\aap20\\Desktop\\dbd\\BarasToolba\\FiddlerCoreLib": {},
+        "C:\\Users\\fderdf\\Desktop\\FiddlerCoreLib": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1528,7 +1528,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net6.0-windows7.0": {
@@ -1580,10 +1580,6 @@
             "version": "[6.0.36, 6.0.36]"
           },
           {
-            "name": "Microsoft.NETCore.App.Crossgen2.win-x64",
-            "version": "[6.0.36, 6.0.36]"
-          },
-          {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
             "version": "[6.0.36, 6.0.36]"
           },
@@ -1600,7 +1596,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
