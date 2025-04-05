@@ -23,6 +23,8 @@ def getHeaders():
     client_os = js["os"]
     version = js["version"]
 
+    host = ""
+
     headers = {
         "Cookie": bhvr,
         "User-Agent": useragent,
@@ -33,10 +35,15 @@ def getHeaders():
         "x-kraken-client-version": version
     }
 
-    return headers
+    if platform == "steam":
+        host = "steam.live.bhvrdbd.com"
+    elif platform == "egs":
+        host = "egs.live.bhvrdbd.com"
 
-def ActiveQuest(headers):
-    url = "https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/activeNode"
+    return headers, host
+
+def ActiveQuest(headers, host):
+    url = f"https://{host}/api/v1/archives/stories/get/activeNode"
     resp = requests.get(url=url, headers=headers, verify=False)
 
     Rjson = resp.json()
@@ -67,12 +74,12 @@ def ActiveQuest(headers):
     return survivor, killer
 
 
-def CreateNextQuestList(s, k, headers):
+def CreateNextQuestList(s, k, headers, host):
     xs = []
     Tomes = getTomeList()[::-1]
 
     for Tome in Tomes:
-        url = f"https://egs.live.bhvrdbd.com/api/v1/archives/stories/get/story?storyId={Tome}"
+        url = f"https://{host}/api/v1/archives/stories/get/story?storyId={Tome}"
         resp = requests.get(url=url, headers=headers, verify=False)
         Rjson = resp.json()["listOfNodes"]
         for node in Rjson:
@@ -86,7 +93,7 @@ def CreateNextQuestList(s, k, headers):
                     xs.append(node)
     return xs
 
-def PickNewQuest(s, k, All_Quests, headers):
+def PickNewQuest(s, k, All_Quests, headers, host):
     if s != 0 and k != 0:
         return
     if s == 0:
@@ -96,7 +103,7 @@ def PickNewQuest(s, k, All_Quests, headers):
                 "role": "survivor"
             }
 
-            url = "https://egs.live.bhvrdbd.com/api/v1/archives/stories/update/active-node-v3"
+            url = f"https://{host}/api/v1/archives/stories/update/active-node-v3"
 
             resp = requests.post(url=url, headers=headers, verify=False, json=jsonBody)
 
@@ -110,7 +117,7 @@ def PickNewQuest(s, k, All_Quests, headers):
                 "role": "killer"
             }
 
-            url = "https://egs.live.bhvrdbd.com/api/v1/archives/stories/update/active-node-v3"
+            url = f"https://{host}/api/v1/archives/stories/update/active-node-v3"
 
             resp = requests.post(url=url, headers=headers, verify=False, json=jsonBody)
 
