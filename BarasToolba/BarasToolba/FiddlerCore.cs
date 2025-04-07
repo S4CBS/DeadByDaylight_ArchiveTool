@@ -392,23 +392,13 @@ namespace BarasToolba
                                             {
                                                 count = count + 1;
                                             }
-                                            if (status.ContainsKey("hasUnseenContent"))
-                                            {
-                                                if (status["hasUnseenContent"].ToString() == "True")
-                                                {
-                                                }
-                                                else
-                                                {
-                                                    if (count < 4)
-                                                    {
-                                                        Form.ListTomes.Items.Add(tome["id"]);
-                                                    }
-                                                    else
-                                                    {
-
-                                                    }
-                                                }
-                                            }
+                                        }
+                                        if (count < 4)
+                                        {
+                                            Form.ListTomes.Items.Add(tome["id"]);
+                                        }
+                                        else
+                                        {
                                         }
                                     }
                                 }
