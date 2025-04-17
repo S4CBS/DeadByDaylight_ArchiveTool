@@ -39,6 +39,8 @@ def getHeaders():
         host = "steam.live.bhvrdbd.com"
     elif platform == "egs":
         host = "egs.live.bhvrdbd.com"
+    elif platform == "grdk":
+        host = "grdk.live.bhvrdbd.com"
 
     return headers, host
 

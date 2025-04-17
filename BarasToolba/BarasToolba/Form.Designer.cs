@@ -259,7 +259,7 @@
             PlatformBox.DropDownStyle = ComboBoxStyle.DropDownList;
             PlatformBox.ForeColor = Color.Indigo;
             PlatformBox.FormattingEnabled = true;
-            PlatformBox.Items.AddRange(new object[] { "Steam", "EGS" });
+            PlatformBox.Items.AddRange(new object[] { "Steam", "EGS", "MS" });
             PlatformBox.Location = new Point(851, 326);
             PlatformBox.Name = "PlatformBox";
             PlatformBox.Size = new Size(121, 23);

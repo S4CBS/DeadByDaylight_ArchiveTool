@@ -293,7 +293,8 @@ namespace BarasToolba
 
         public static void FiddlerToCatchBeforeRequest(Session oSession)
         {
-            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody")){
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody") || oSession.uriContains("grdk/loginWithTokenBody"))
+            {
                 if (oSession.oRequest["User-Agent"].Length > 0)
                     Globals_Session.Game.user_agent = oSession.oRequest["User-Agent"];
 
@@ -330,7 +331,7 @@ namespace BarasToolba
 
         public static void FiddlerToCatchAfterSessionComplete(Session oSession)
         {
-            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody"))
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody") || oSession.uriContains("grdk/loginWithTokenBody"))
             {
                 oSession.utilDecodeResponse();
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
