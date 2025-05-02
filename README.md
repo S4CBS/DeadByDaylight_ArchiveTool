@@ -6,6 +6,7 @@
 # Платформы:
 - Epic Games
 - Steam (Нужен SSL bypass) советую бесплатный от Eclipsed (платный от DBD tools)
+- MS
 
 # Libs
 - CranchyLib.Networking
@@ -23,7 +24,7 @@
 # В процессе добавления:
 
 # Актуальная версия DBD:
-- 8.6.1
+- 8.6.2
 
 ## ENG
 
@@ -33,6 +34,7 @@
 # Platforms:
 - Epic Games
 - Steam (Requires SSL bypass) I recommend free steam from Eclipsed (paid steam from DBD tools)
+- MS
 
 # Libs
 - CranchyLib.Networking
@@ -50,4 +52,4 @@
 # In the process of adding:
 
 # Current DBD version:
-- 8.6.1
+- 8.6.2
