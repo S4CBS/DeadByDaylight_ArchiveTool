@@ -141,6 +141,10 @@ namespace BarasToolba
             {
                 Globals_Session.Game.PLT = "steam.live.bhvrdbd.com";
             }
+            else if (plt == "MS")
+            {
+                Globals_Session.Game.PLT = "grdk.live.bhvrdbd.com";
+            }
         }
     }
 }

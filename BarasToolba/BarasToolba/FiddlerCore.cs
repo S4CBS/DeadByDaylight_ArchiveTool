@@ -234,7 +234,7 @@ namespace BarasToolba
 
         public static bool Start()
         {
-            // AllocConsole();
+            AllocConsole();
 
             if (Form.PlatformBox.SelectedItem != null)
             {
@@ -286,13 +286,15 @@ namespace BarasToolba
                     Globals_Session.Game.bhvrSession = null;
                     Form.PlatformBox.Enabled = true;
                     Globals_Session.Game.PLT = null;
+                    Form.Prioritet = 0;
                 }
             }
         }
 
         public static void FiddlerToCatchBeforeRequest(Session oSession)
         {
-            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody")){
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/login") || oSession.uriContains("grdk/loginWithTokenBody"))
+            {
                 if (oSession.oRequest["User-Agent"].Length > 0)
                     Globals_Session.Game.user_agent = oSession.oRequest["User-Agent"];
 
@@ -329,7 +331,7 @@ namespace BarasToolba
 
         public static void FiddlerToCatchAfterSessionComplete(Session oSession)
         {
-            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody"))
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/login") || oSession.uriContains("grdk/loginWithTokenBody"))
             {
                 oSession.utilDecodeResponse();
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
@@ -391,23 +393,13 @@ namespace BarasToolba
                                             {
                                                 count = count + 1;
                                             }
-                                            if (status.ContainsKey("hasUnseenContent"))
-                                            {
-                                                if (status["hasUnseenContent"].ToString() == "True")
-                                                {
-                                                }
-                                                else
-                                                {
-                                                    if (count < 4)
-                                                    {
-                                                        Form.ListTomes.Items.Add(tome["id"]);
-                                                    }
-                                                    else
-                                                    {
-
-                                                    }
-                                                }
-                                            }
+                                        }
+                                        if (count < 4)
+                                        {
+                                            Form.ListTomes.Items.Add(tome["id"]);
+                                        }
+                                        else
+                                        {
                                         }
                                     }
                                 }
@@ -541,6 +533,7 @@ namespace BarasToolba
                         }
                     }
                 }
+                FloadListTomes = 1;
             }
 
             if (oSession.uriContains("/api/v1/queue"))
@@ -712,6 +705,9 @@ namespace BarasToolba
                             client.DefaultRequestHeaders.Add("x-kraken-client-provider", Globals_Session.Game.client_provider);
                             client.DefaultRequestHeaders.Add("x-kraken-client-os", Globals_Session.Game.client_os);
                             client.DefaultRequestHeaders.UserAgent.ParseAdd(Globals_Session.Game.user_agent);
+
+                            Console.WriteLine(1);
+                            Console.WriteLine(Globals_Session.Game.bhvrSession);
 
                             // Запрос данных об активных квестах
                             string urlGetStory = $"https://{Globals_Session.Game.PLT}/api/v1/archives/stories/get/activeNode";
