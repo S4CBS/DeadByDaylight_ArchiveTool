@@ -234,7 +234,7 @@ namespace BarasToolba
 
         public static bool Start()
         {
-            AllocConsole();
+            // AllocConsole();
 
             if (Form.PlatformBox.SelectedItem != null)
             {
@@ -705,9 +705,6 @@ namespace BarasToolba
                             client.DefaultRequestHeaders.Add("x-kraken-client-provider", Globals_Session.Game.client_provider);
                             client.DefaultRequestHeaders.Add("x-kraken-client-os", Globals_Session.Game.client_os);
                             client.DefaultRequestHeaders.UserAgent.ParseAdd(Globals_Session.Game.user_agent);
-
-                            Console.WriteLine(1);
-                            Console.WriteLine(Globals_Session.Game.bhvrSession);
 
                             // Запрос данных об активных квестах
                             string urlGetStory = $"https://{Globals_Session.Game.PLT}/api/v1/archives/stories/get/activeNode";
