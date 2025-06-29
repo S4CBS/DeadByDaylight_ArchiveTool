@@ -1,0 +1,7 @@
+C:\Users\dartVeider\Desktop\publish\BarasToolba.pdb
+C:\Users\dartVeider\Desktop\publish\D3DCompiler_47_cor3.dll
+C:\Users\dartVeider\Desktop\publish\PenImc_cor3.dll
+C:\Users\dartVeider\Desktop\publish\PresentationNative_cor3.dll
+C:\Users\dartVeider\Desktop\publish\vcruntime140_cor3.dll
+C:\Users\dartVeider\Desktop\publish\wpfgfx_cor3.dll
+C:\Users\dartVeider\Desktop\publish\BarasToolba.exe

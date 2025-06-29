@@ -36,7 +36,6 @@
             Progress = new Label();
             Reward1 = new Label();
             Reward2 = new Label();
-            GetQuest = new Button();
             PlayerRole = new Label();
             labelSQuest = new Label();
             labelKQuest = new Label();
@@ -47,6 +46,7 @@
             ListTomes = new ComboBox();
             PriorityCheck = new CheckBox();
             PlatformBox = new ComboBox();
+            BPcounter = new Label();
             SuspendLayout();
             // 
             // Start
@@ -132,16 +132,6 @@
             Reward2.Size = new Size(31, 17);
             Reward2.TabIndex = 6;
             Reward2.Text = "N/A";
-            // 
-            // GetQuest
-            // 
-            GetQuest.Location = new Point(216, 326);
-            GetQuest.Name = "GetQuest";
-            GetQuest.Size = new Size(153, 26);
-            GetQuest.TabIndex = 7;
-            GetQuest.Text = "Получить данные";
-            GetQuest.UseVisualStyleBackColor = true;
-            GetQuest.Click += GetQuest_Click;
             // 
             // PlayerRole
             // 
@@ -235,7 +225,7 @@
             ListTomes.DropDownStyle = ComboBoxStyle.DropDownList;
             ListTomes.ForeColor = Color.Indigo;
             ListTomes.FormattingEnabled = true;
-            ListTomes.Location = new Point(419, 326);
+            ListTomes.Location = new Point(170, 334);
             ListTomes.Name = "ListTomes";
             ListTomes.Size = new Size(216, 23);
             ListTomes.Sorted = true;
@@ -246,7 +236,7 @@
             // 
             PriorityCheck.AutoSize = true;
             PriorityCheck.ForeColor = Color.Indigo;
-            PriorityCheck.Location = new Point(664, 328);
+            PriorityCheck.Location = new Point(392, 336);
             PriorityCheck.Name = "PriorityCheck";
             PriorityCheck.Size = new Size(98, 19);
             PriorityCheck.TabIndex = 18;
@@ -266,12 +256,24 @@
             PlatformBox.TabIndex = 19;
             PlatformBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
+            // BPcounter
+            // 
+            BPcounter.AutoSize = true;
+            BPcounter.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            BPcounter.ForeColor = Color.Indigo;
+            BPcounter.Location = new Point(496, 332);
+            BPcounter.Name = "BPcounter";
+            BPcounter.Size = new Size(148, 21);
+            BPcounter.TabIndex = 20;
+            BPcounter.Text = "Blooodpoints: ###";
+            // 
             // Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(984, 361);
+            Controls.Add(BPcounter);
             Controls.Add(PlatformBox);
             Controls.Add(PriorityCheck);
             Controls.Add(ListTomes);
@@ -282,7 +284,6 @@
             Controls.Add(labelKQuest);
             Controls.Add(labelSQuest);
             Controls.Add(PlayerRole);
-            Controls.Add(GetQuest);
             Controls.Add(Reward2);
             Controls.Add(Reward1);
             Controls.Add(Progress);
@@ -294,7 +295,7 @@
             MaximumSize = new Size(1000, 400);
             MinimumSize = new Size(1000, 400);
             Name = "Form";
-            Text = "аgg64545hhdfdсвмвпh zf6hf4_";
+            Text = "hythgj54рп55ор6кc4g$vgfth";
             Load += Form_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -304,7 +305,6 @@
 
         private Button Start;
         private Button Stop;
-        private Button GetQuest;
         internal static Label KProgres2;
         internal static CheckBox PriorityCheck;
         internal static ComboBox ListTomes;
@@ -321,5 +321,6 @@
         internal static Label KReward2;
         internal static Label KProgress;
         internal static ComboBox PlatformBox;
+        internal static Label BPcounter;
     }
 }

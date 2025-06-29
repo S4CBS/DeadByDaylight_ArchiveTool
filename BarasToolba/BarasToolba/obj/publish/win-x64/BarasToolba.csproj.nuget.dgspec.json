@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\BarasToolba.csproj": {}
+    "C:\\Users\\dartVeider\\Desktop\\DeadByDaylight_ArchiveTool-branch2\\BarasToolba\\BarasToolba\\BarasToolba.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\BarasToolba.csproj": {
+    "C:\\Users\\dartVeider\\Desktop\\DeadByDaylight_ArchiveTool-branch2\\BarasToolba\\BarasToolba\\BarasToolba.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+        "projectUniqueName": "C:\\Users\\dartVeider\\Desktop\\DeadByDaylight_ArchiveTool-branch2\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
         "projectName": "BarasToolba",
-        "projectPath": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
-        "packagesPath": "C:\\Users\\fderdf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fderdf\\Desktop\\barasSource\\BarasToolba\\BarasToolba\\obj\\publish\\win-x64\\",
+        "projectPath": "C:\\Users\\dartVeider\\Desktop\\DeadByDaylight_ArchiveTool-branch2\\BarasToolba\\BarasToolba\\BarasToolba.csproj",
+        "packagesPath": "C:\\Users\\dartVeider\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dartVeider\\Desktop\\DeadByDaylight_ArchiveTool-branch2\\BarasToolba\\BarasToolba\\obj\\publish\\win-x64\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "E:\\VisualStudio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\fderdf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dartVeider\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,7 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Users\\fderdf\\Desktop\\FiddlerCoreLib": {},
+          "C:\\Users\\dartVeider\\Desktop\\DeadByDaylight_ArchiveTool-branch2\\BarasToolba\\FiddlerCoreLib": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -46,7 +46,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net6.0-windows7.0": {
@@ -114,7 +114,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

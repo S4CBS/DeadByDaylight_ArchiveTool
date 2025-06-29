@@ -320,6 +320,7 @@ namespace BarasToolba
                 {
                     Globals_Session.Game.bhvrSession = oSession.oRequest["Cookie"].Replace("bhvrSession=", string.Empty);
                     UpdateData();
+                    UpdateCur();
                     JsonHelper.SaveGameData();
                     Form.PriorityCheck.Enabled = false;
                 }
@@ -679,6 +680,69 @@ namespace BarasToolba
                             }
                         }
                     }
+                }
+            }
+        }
+
+        public static void UpdateCur()
+        {
+            if (Globals_Session.Game.bhvrSession != null)
+            {
+                try
+                {
+                    // Настройка HTTP-клиента с отключенной проверкой SSL 
+                    using (var handler = new HttpClientHandler())
+                    {
+                        // Опасная настройка! Отключает проверку SSL-сертификатов
+                        handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+
+                        using (var client = new HttpClient(handler))
+                        {
+                            // Добавление заголовков для аутентификации и идентификации
+                            client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            client.DefaultRequestHeaders.Add("x-kraken-analytics-session-id", Globals_Session.Game.client_kraken_session);
+                            client.DefaultRequestHeaders.Add("x-kraken-client-platform", Globals_Session.Game.client_platform);
+                            client.DefaultRequestHeaders.Add("x-kraken-client-provider", Globals_Session.Game.client_provider);
+                            client.DefaultRequestHeaders.Add("x-kraken-client-os", Globals_Session.Game.client_os);
+                            client.DefaultRequestHeaders.UserAgent.ParseAdd(Globals_Session.Game.user_agent);
+
+                            // Запрос данных об активных квестах
+                            string urlGetStory = $"https://{Globals_Session.Game.PLT}/api/v1/wallet/currencies";
+                            var response = client.GetAsync(urlGetStory).Result; // Блокирующий вызов!
+                            response.EnsureSuccessStatusCode(); // Проверка HTTP 200 OK
+                            var responseBody = response.Content.ReadAsStringAsync().Result; // Синхронное чтение
+
+                            // Парсинг JSON-ответа
+                            var json = JObject.Parse(responseBody);
+
+                            var currencies = json["list"] as JArray;
+
+                            int bp = 0;
+                            int bonus_bp = 0;
+
+                            foreach (var currency in currencies)
+                            {
+                                string currencyType = currency["currency"]?.ToString();
+                                int balance = currency["balance"]?.Value<int>() ?? 0;
+
+                                switch (currencyType)
+                                {
+                                    case "Bloodpoints":
+                                        bp = balance;
+                                        break;
+                                    case "BonusBloodpoints":
+                                        bonus_bp = balance;
+                                        break;
+                                }
+                            }
+
+                            Form.BPcounter.Text = $"Blooodpoints: {bp + bonus_bp}";
+                        }
+                    }
+                }
+                catch
+                {
+                    Form.BPcounter.Text = "Blooodpoints: 0";
                 }
             }
         }

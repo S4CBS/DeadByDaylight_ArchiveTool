@@ -108,6 +108,7 @@ namespace BarasToolba
                     await Task.Run(() => process.WaitForExit()); // Асинхронное ожидание завершения
                     
                 }
+                FiddlerCore.UpdateCur();
             }
             catch (Exception ex)
             {
