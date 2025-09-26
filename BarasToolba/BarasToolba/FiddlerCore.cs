@@ -1,13 +1,14 @@
-﻿using System.Data;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Text;
-using System.Text.RegularExpressions;
-using BarasToolba;
+﻿using BarasToolba;
 using CranchyLib.Networking;
 using Fiddler;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Data;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BarasToolba
 {
@@ -313,20 +314,6 @@ namespace BarasToolba
                 if (oSession.oRequest["x-kraken-analytics-session-id"].Length > 0)
                     Globals_Session.Game.client_kraken_session = oSession.oRequest["x-kraken-analytics-session-id"];
             }
-
-            if (oSession.uriContains("/api/v1/config"))
-            {
-                if (oSession.oRequest["Cookie"].Length > 0)
-                {
-                    Globals_Session.Game.bhvrSession = oSession.oRequest["Cookie"].Replace("bhvrSession=", string.Empty);
-                    UpdateData();
-                    UpdateCur();
-                    JsonHelper.SaveGameData();
-                    Form.PriorityCheck.Enabled = false;
-                }
-
-                return;
-            }
         }
 
 
@@ -336,6 +323,21 @@ namespace BarasToolba
             {
                 oSession.utilDecodeResponse();
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
+            }
+
+            if (oSession.uriContains("/api/v1/config"))
+            {
+                if (oSession.oResponse["Set-Cookie"].Length > 0)
+                {
+                    Globals_Session.Game.bhvrSession = oSession.oResponse["Set-Cookie"].Replace("bhvrSession=", string.Empty);
+                    Console.WriteLine(Globals_Session.Game.bhvrSession);
+                    UpdateData();
+                    UpdateCur();
+                    JsonHelper.SaveGameData();
+                    Form.PriorityCheck.Enabled = false;
+                }
+
+                return;
             }
 
             if (oSession.uriContains("/api/v1/archives/stories/update/active-node-v3"))
@@ -681,6 +683,7 @@ namespace BarasToolba
                         }
                     }
                 }
+                UpdateCur();
             }
         }
 
