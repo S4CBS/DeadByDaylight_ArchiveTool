@@ -53,6 +53,7 @@ namespace BarasToolba
             public static string client_platform = null;
             public static string client_os = null;
             public static string client_kraken_session = null;
+            public static string api_key = null;
         }
     }
 
@@ -325,12 +326,24 @@ namespace BarasToolba
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
             }
 
-            if (oSession.uriContains("/api/v1/config"))
+            /*if (oSession.uriContains(""))
             {
                 if (oSession.oResponse["Set-Cookie"].Length > 0)
                 {
                     Globals_Session.Game.bhvrSession = oSession.oResponse["Set-Cookie"].Replace("bhvrSession=", string.Empty);
                     Console.WriteLine(Globals_Session.Game.bhvrSession);
+                }
+            }*/
+
+            if (oSession.uriContains("/api/v1/config"))
+            {
+                if (oSession.oResponse["Set-Cookie"].Length > 0 && Globals_Session.Game.bhvrSession == null)
+                {
+
+                    if (oSession.oRequest["x-kraken-client-platform"].Length > 0)
+                        Globals_Session.Game.api_key = oSession.oRequest["api-key"];
+
+                    Globals_Session.Game.bhvrSession = oSession.oResponse["Set-Cookie"].Replace("bhvrSession=", string.Empty);
                     UpdateData();
                     UpdateCur();
                     JsonHelper.SaveGameData();
@@ -702,7 +715,8 @@ namespace BarasToolba
                         using (var client = new HttpClient(handler))
                         {
                             // Добавление заголовков для аутентификации и идентификации
-                            client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            // client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            client.DefaultRequestHeaders.Add("api-key", Globals_Session.Game.api_key);
                             client.DefaultRequestHeaders.Add("x-kraken-analytics-session-id", Globals_Session.Game.client_kraken_session);
                             client.DefaultRequestHeaders.Add("x-kraken-client-platform", Globals_Session.Game.client_platform);
                             client.DefaultRequestHeaders.Add("x-kraken-client-provider", Globals_Session.Game.client_provider);
@@ -766,7 +780,8 @@ namespace BarasToolba
                         using (var client = new HttpClient(handler))
                         {
                             // Добавление заголовков для аутентификации и идентификации
-                            client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            // client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            client.DefaultRequestHeaders.Add("api-key", Globals_Session.Game.api_key);
                             client.DefaultRequestHeaders.Add("x-kraken-analytics-session-id", Globals_Session.Game.client_kraken_session);
                             client.DefaultRequestHeaders.Add("x-kraken-client-platform", Globals_Session.Game.client_platform);
                             client.DefaultRequestHeaders.Add("x-kraken-client-provider", Globals_Session.Game.client_provider);
