@@ -326,29 +326,16 @@ namespace BarasToolba
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
             }
 
-            /*if (oSession.uriContains(""))
+            if (oSession.uriContains("/api/v1/config") && Globals_Session.Game.api_key == null)
             {
-                if (oSession.oResponse["Set-Cookie"].Length > 0)
-                {
-                    Globals_Session.Game.bhvrSession = oSession.oResponse["Set-Cookie"].Replace("bhvrSession=", string.Empty);
-                    Console.WriteLine(Globals_Session.Game.bhvrSession);
-                }
-            }*/
 
-            if (oSession.uriContains("/api/v1/config"))
-            {
-                if (oSession.oResponse["Set-Cookie"].Length > 0 && Globals_Session.Game.bhvrSession == null)
-                {
+                if (oSession.oRequest["api-key"].Length > 0)
+                    Globals_Session.Game.api_key = oSession.oRequest["api-key"];
 
-                    if (oSession.oRequest["x-kraken-client-platform"].Length > 0)
-                        Globals_Session.Game.api_key = oSession.oRequest["api-key"];
-
-                    Globals_Session.Game.bhvrSession = oSession.oResponse["Set-Cookie"].Replace("bhvrSession=", string.Empty);
-                    UpdateData();
-                    UpdateCur();
-                    JsonHelper.SaveGameData();
-                    Form.PriorityCheck.Enabled = false;
-                }
+                UpdateData();
+                UpdateCur();
+                JsonHelper.SaveGameData();
+                Form.PriorityCheck.Enabled = false;
 
                 return;
             }
