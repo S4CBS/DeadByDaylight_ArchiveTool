@@ -1,13 +1,14 @@
-﻿using System.Data;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Text;
-using System.Text.RegularExpressions;
-using BarasToolba;
+﻿using BarasToolba;
 using CranchyLib.Networking;
 using Fiddler;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Data;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BarasToolba
 {
@@ -52,6 +53,7 @@ namespace BarasToolba
             public static string client_platform = null;
             public static string client_os = null;
             public static string client_kraken_session = null;
+            public static string api_key = null;
         }
     }
 
@@ -293,7 +295,7 @@ namespace BarasToolba
 
         public static void FiddlerToCatchBeforeRequest(Session oSession)
         {
-            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody") || oSession.uriContains("grdk/loginWithTokenBody"))
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/login") || oSession.uriContains("grdk/loginWithTokenBody"))
             {
                 if (oSession.oRequest["User-Agent"].Length > 0)
                     Globals_Session.Game.user_agent = oSession.oRequest["User-Agent"];
@@ -313,28 +315,29 @@ namespace BarasToolba
                 if (oSession.oRequest["x-kraken-analytics-session-id"].Length > 0)
                     Globals_Session.Game.client_kraken_session = oSession.oRequest["x-kraken-analytics-session-id"];
             }
-
-            if (oSession.uriContains("/api/v1/config"))
-            {
-                if (oSession.oRequest["Cookie"].Length > 0)
-                {
-                    Globals_Session.Game.bhvrSession = oSession.oRequest["Cookie"].Replace("bhvrSession=", string.Empty);
-                    UpdateData();
-                    JsonHelper.SaveGameData();
-                    Form.PriorityCheck.Enabled = false;
-                }
-
-                return;
-            }
         }
 
 
         public static void FiddlerToCatchAfterSessionComplete(Session oSession)
         {
-            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/loginWithTokenBody") || oSession.uriContains("grdk/loginWithTokenBody"))
+            if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/login") || oSession.uriContains("grdk/loginWithTokenBody"))
             {
                 oSession.utilDecodeResponse();
                 GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
+            }
+
+            if (oSession.uriContains("/api/v1/config") && Globals_Session.Game.api_key == null)
+            {
+
+                if (oSession.oRequest["api-key"].Length > 0)
+                    Globals_Session.Game.api_key = oSession.oRequest["api-key"];
+
+                UpdateData();
+                UpdateCur();
+                JsonHelper.SaveGameData();
+                Form.PriorityCheck.Enabled = false;
+
+                return;
             }
 
             if (oSession.uriContains("/api/v1/archives/stories/update/active-node-v3"))
@@ -680,6 +683,71 @@ namespace BarasToolba
                         }
                     }
                 }
+                UpdateCur();
+            }
+        }
+
+        public static void UpdateCur()
+        {
+            if (Globals_Session.Game.bhvrSession != null)
+            {
+                try
+                {
+                    // Настройка HTTP-клиента с отключенной проверкой SSL 
+                    using (var handler = new HttpClientHandler())
+                    {
+                        // Опасная настройка! Отключает проверку SSL-сертификатов
+                        handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+
+                        using (var client = new HttpClient(handler))
+                        {
+                            // Добавление заголовков для аутентификации и идентификации
+                            // client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            client.DefaultRequestHeaders.Add("api-key", Globals_Session.Game.api_key);
+                            client.DefaultRequestHeaders.Add("x-kraken-analytics-session-id", Globals_Session.Game.client_kraken_session);
+                            client.DefaultRequestHeaders.Add("x-kraken-client-platform", Globals_Session.Game.client_platform);
+                            client.DefaultRequestHeaders.Add("x-kraken-client-provider", Globals_Session.Game.client_provider);
+                            client.DefaultRequestHeaders.Add("x-kraken-client-os", Globals_Session.Game.client_os);
+                            client.DefaultRequestHeaders.UserAgent.ParseAdd(Globals_Session.Game.user_agent);
+
+                            // Запрос данных об активных квестах
+                            string urlGetStory = $"https://{Globals_Session.Game.PLT}/api/v1/wallet/currencies";
+                            var response = client.GetAsync(urlGetStory).Result; // Блокирующий вызов!
+                            response.EnsureSuccessStatusCode(); // Проверка HTTP 200 OK
+                            var responseBody = response.Content.ReadAsStringAsync().Result; // Синхронное чтение
+
+                            // Парсинг JSON-ответа
+                            var json = JObject.Parse(responseBody);
+
+                            var currencies = json["list"] as JArray;
+
+                            int bp = 0;
+                            int bonus_bp = 0;
+
+                            foreach (var currency in currencies)
+                            {
+                                string currencyType = currency["currency"]?.ToString();
+                                int balance = currency["balance"]?.Value<int>() ?? 0;
+
+                                switch (currencyType)
+                                {
+                                    case "Bloodpoints":
+                                        bp = balance;
+                                        break;
+                                    case "BonusBloodpoints":
+                                        bonus_bp = balance;
+                                        break;
+                                }
+                            }
+
+                            Form.BPcounter.Text = $"Blooodpoints: {bp + bonus_bp}";
+                        }
+                    }
+                }
+                catch
+                {
+                    Form.BPcounter.Text = "Blooodpoints: 0";
+                }
             }
         }
 
@@ -699,7 +767,8 @@ namespace BarasToolba
                         using (var client = new HttpClient(handler))
                         {
                             // Добавление заголовков для аутентификации и идентификации
-                            client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            // client.DefaultRequestHeaders.Add("Cookie", $"bhvrSession={Globals_Session.Game.bhvrSession}");
+                            client.DefaultRequestHeaders.Add("api-key", Globals_Session.Game.api_key);
                             client.DefaultRequestHeaders.Add("x-kraken-analytics-session-id", Globals_Session.Game.client_kraken_session);
                             client.DefaultRequestHeaders.Add("x-kraken-client-platform", Globals_Session.Game.client_platform);
                             client.DefaultRequestHeaders.Add("x-kraken-client-provider", Globals_Session.Game.client_provider);

@@ -12,9 +12,9 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\fderdf\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\fderdf\\.nuget\\packages",
-      "E:\\VisualStudio\\Shared\\NuGetPackages"
+      "C:\\Users\\dartVeider\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\dartVeider\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {
       "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,

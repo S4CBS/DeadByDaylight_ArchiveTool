@@ -16,6 +16,7 @@ def getHeaders():
         js = json.load(file)
 
     bhvr = "bhvrSession=" + js["bhvrSession"]
+    api_key = js["api_key"]
     x_kraken_analytics_session_id = js["x_kraken_analytics_session_id"]
     useragent = js["useragent"]
     platform = js["platform"]
@@ -26,7 +27,7 @@ def getHeaders():
     host = ""
 
     headers = {
-        "Cookie": bhvr,
+        "api-key": api_key,
         "User-Agent": useragent,
         "x-kraken-client-platform": platform,
         "x-kraken-client-provider": provider,

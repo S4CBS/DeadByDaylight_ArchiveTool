@@ -51,7 +51,9 @@ namespace BarasToolba
         {
             List<string> headers = new List<string>()
             {
-                $"Cookie: bhvrSession={Globals_Session.Game.bhvrSession}",
+                // $"Cookie: bhvrSession={Globals_Session.Game.bhvrSession}",
+                $"api-key: {Globals_Session.Game.api_key}",
+                $"x-kraken-analytics-session-id: {Globals_Session.Game.client_kraken_session}",
                 $"User-Agent: {Globals_Session.Game.user_agent}",
                 $"x-kraken-client-platform: {Globals_Session.Game.client_platform}",
                 $"x-kraken-client-provider: {Globals_Session.Game.client_provider}",
@@ -145,7 +147,9 @@ namespace BarasToolba
                 {
                     List<string> headers = new List<string>()
                     {
-                        $"Cookie: bhvrSession={Globals_Session.Game.bhvrSession}",
+                        // $"Cookie: bhvrSession={Globals_Session.Game.bhvrSession}",
+                        $"api-key: {Globals_Session.Game.api_key}",
+                        $"x-kraken-analytics-session-id: {Globals_Session.Game.client_kraken_session}",
                         $"User-Agent: {Globals_Session.Game.user_agent}",
                         $"x-kraken-client-platform: {Globals_Session.Game.client_platform}",
                         $"x-kraken-client-provider: {Globals_Session.Game.client_provider}",
