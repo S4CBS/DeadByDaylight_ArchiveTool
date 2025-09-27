@@ -27,7 +27,7 @@ https://youtu.be/NrNL_ZThZ5k
 # В процессе добавления:
 
 # Актуальная версия DBD:
-- 9.1.2
+- 9.2.0
 
 ## ENG
 
@@ -55,4 +55,4 @@ https://youtu.be/NrNL_ZThZ5k
 # In the process of adding:
 
 # Current DBD version:
-- 9.1.2
+- 9.2.0
