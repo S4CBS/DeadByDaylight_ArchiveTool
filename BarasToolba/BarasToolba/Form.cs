@@ -87,7 +87,7 @@ namespace BarasToolba
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (Globals_Session.Game.bhvrSession == null)
+            if (Globals_Session.Game.api_key == null)
             {
                 if (Prioritet == 0)
                 {
