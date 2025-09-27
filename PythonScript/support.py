@@ -15,7 +15,6 @@ def getHeaders():
     with open(pathTocfg, "r") as file:
         js = json.load(file)
 
-    bhvr = "bhvrSession=" + js["bhvrSession"]
     api_key = js["api_key"]
     x_kraken_analytics_session_id = js["x_kraken_analytics_session_id"]
     useragent = js["useragent"]

@@ -23,7 +23,6 @@ namespace BarasToolba
         {
             var gameData = new
             {
-                bhvrSession = Globals_Session.Game.bhvrSession,
                 api_key = Globals_Session.Game.api_key,
                 x_kraken_analytics_session_id = Globals_Session.Game.client_kraken_session,
                 useragent = Globals_Session.Game.user_agent,
