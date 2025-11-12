@@ -647,6 +647,8 @@ namespace BarasToolba
                 oSession.utilDecodeRequest();
                 string requestBody = oSession.GetRequestBodyAsString();
 
+                Console.WriteLine(requestBody);
+
                 if (requestBody.IsJson())
                 {
                     JObject requestJson = JObject.Parse(requestBody);
@@ -656,6 +658,8 @@ namespace BarasToolba
                             foreach (JToken gameEvent in requestJson["events"])
                             {
                                 JToken eventData = gameEvent["data"];
+
+                                Console.WriteLine(gameEvent.ToString());
 
                                 if (eventData != null)
                                 {

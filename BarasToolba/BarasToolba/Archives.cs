@@ -138,56 +138,96 @@ namespace BarasToolba
         }
         public static void CompleteActiveQuest(S_MatchData matchData)
         {
-            if (matchData.matchId != lastSuccessfulMatch.matchId && matchData.krakenMatchId != lastSuccessfulMatch.krakenMatchId) // Verify that match we're about to use isn't one that we've already used.
+            Console.WriteLine("[DEBUG] === Начало выполнения CompleteActiveQuest ===");
+            Console.WriteLine($"[DEBUG] Match ID: {matchData.matchId}, KrakenMatch ID: {matchData.krakenMatchId}");
+
+            if (matchData.matchId == lastSuccessfulMatch.matchId && matchData.krakenMatchId == lastSuccessfulMatch.krakenMatchId)
             {
-                S_Quest activeQuest = GetActiveQuest();
+                Console.WriteLine("[DEBUG] Этот матч уже был успешно обработан ранее. Пропуск.");
+                return;
+            }
 
-                if (activeQuest.nodeId != null && (activeQuest.currentProgression != activeQuest.neededProgression)) // Make sure that we've successfully retrieved a quest data and that quest isn't yet complete (there's progression steps to do)
+            Console.WriteLine("[DEBUG] Получаем активный квест...");
+            S_Quest activeQuest = GetActiveQuest();
+
+            if (activeQuest.nodeId == null)
+            {
+                Console.WriteLine("[DEBUG] Не удалось получить активный квест — nodeId отсутствует.");
+                return;
+            }
+
+            if (activeQuest.currentProgression == activeQuest.neededProgression)
+            {
+                Console.WriteLine("[DEBUG] Квест уже завершён, ничего не требуется.");
+                return;
+            }
+
+            Console.WriteLine($"[DEBUG] Активный квест: Уровень={activeQuest.level}, NodeID={activeQuest.nodeId}, StoryID={activeQuest.storyId}");
+            Console.WriteLine($"[DEBUG] Прогресс: {activeQuest.currentProgression}/{activeQuest.neededProgression}");
+            Console.WriteLine($"[DEBUG] Количество событий квеста: {activeQuest.questEvents.Count}");
+
+            List<string> headers = new List<string>()
+    {
+        $"api-key: {Globals_Session.Game.api_key}",
+        $"x-kraken-analytics-session-id: {Globals_Session.Game.client_kraken_session}",
+        $"User-Agent: {Globals_Session.Game.user_agent}",
+        $"x-kraken-client-platform: {Globals_Session.Game.client_platform}",
+        $"x-kraken-client-provider: {Globals_Session.Game.client_provider}",
+        $"x-kraken-client-os: {Globals_Session.Game.client_os}",
+        $"x-kraken-client-version: {Globals_Session.Game.client_version}",
+        "Content-Type: application/json"
+    };
+
+            if (activeQuest.questEvents.Count == 1)
+            {
+                Console.WriteLine("[DEBUG] Квест состоит из одного события. Корректируем количество повторений...");
+                if ((int)activeQuest.questEvents[0]["repetition"] <= activeQuest.neededProgression)
                 {
-                    List<string> headers = new List<string>()
-                    {
-                        $"api-key: {Globals_Session.Game.api_key}",
-                        $"x-kraken-analytics-session-id: {Globals_Session.Game.client_kraken_session}",
-                        $"User-Agent: {Globals_Session.Game.user_agent}",
-                        $"x-kraken-client-platform: {Globals_Session.Game.client_platform}",
-                        $"x-kraken-client-provider: {Globals_Session.Game.client_provider}",
-                        $"x-kraken-client-os: {Globals_Session.Game.client_os}",
-                        $"x-kraken-client-version: {Globals_Session.Game.client_version}",
-                        "Content-Type: application/json"
-                    };
-
-                    if (activeQuest.questEvents.Count == 1)
-                    {
-                        if ((int)activeQuest.questEvents[0]["repetition"] <= activeQuest.neededProgression)
-                        {
-                            int questProgressionToComplete = activeQuest.neededProgression - activeQuest.currentProgression;
-                            activeQuest.questEvents[0]["repetition"] = questProgressionToComplete;
-                        }
-                    }
-
-                    JObject requestBodyJson = JObject.FromObject(new
-                    {
-                        matchId = matchData.matchId,
-                        krakenMatchId = matchData.krakenMatchId,
-                        questEvents = activeQuest.questEvents,
-                        role = Globals_Session.Game.playerRole.ToString().ToLower() // We need player role to be written in lower case specifically!
-                    });
-
-                    // Выполнение задания
-                    var updateQuestProgressResponse = Networking.Post($"https://{Globals_Session.Game.PLT}/api/v1/archives/stories/update/quest-progress-v3/", headers, requestBodyJson.ToString());
-
-                    Form.PlayerRole.Text = "Роль: xxx";
-                    Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
-                    Media.playSound();
-
-                    if (updateQuestProgressResponse.statusCode == Networking.E_StatusCode.CONTINUE)
-                    {
-                        lastSuccessfulMatch = matchData;
-                    }
-                    Program.PickNewQuestAsync();
-                    FiddlerCore.UpdateData();
+                    int questProgressionToComplete = activeQuest.neededProgression - activeQuest.currentProgression;
+                    Console.WriteLine($"[DEBUG] Прогресс для завершения: {questProgressionToComplete}");
+                    activeQuest.questEvents[0]["repetition"] = questProgressionToComplete;
                 }
             }
+
+            JObject requestBodyJson = JObject.FromObject(new
+            {
+                matchId = matchData.matchId,
+                krakenMatchId = matchData.krakenMatchId,
+                questEvents = activeQuest.questEvents,
+                role = Globals_Session.Game.playerRole.ToString().ToLower()
+            });
+
+            Console.WriteLine("[DEBUG] Отправляем запрос на выполнение квеста...");
+            var updateQuestProgressResponse = Networking.Post(
+                $"https://{Globals_Session.Game.PLT}/api/v1/archives/stories/update/quest-progress-v3/",
+                headers,
+                requestBodyJson.ToString()
+            );
+
+            Console.WriteLine($"[DEBUG] Статус ответа: {updateQuestProgressResponse.statusCode}");
+            Console.WriteLine($"[DEBUG] Тело ответа: {updateQuestProgressResponse.content}");
+
+            Form.PlayerRole.Text = "Роль: xxx";
+            Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
+            Media.playSound();
+
+            if (updateQuestProgressResponse.statusCode == Networking.E_StatusCode.CONTINUE)
+            {
+                Console.WriteLine("[DEBUG] Квест успешно обновлён! Обновляем lastSuccessfulMatch.");
+                lastSuccessfulMatch = matchData;
+            }
+            else
+            {
+                Console.WriteLine("[DEBUG] Ответ не содержит статус CONTINUE — выполнение не подтверждено.");
+            }
+
+            Console.WriteLine("[DEBUG] Запуск PickNewQuestAsync...");
+            Program.PickNewQuestAsync();
+
+            Console.WriteLine("[DEBUG] Обновление данных FiddlerCore...");
+            FiddlerCore.UpdateData();
+
+            Console.WriteLine("[DEBUG] === Завершено выполнение CompleteActiveQuest ===");
         }
     }
 }

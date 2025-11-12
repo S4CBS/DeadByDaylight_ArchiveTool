@@ -90,6 +90,8 @@ namespace BarasToolba
                     
                 }
 
+                await Task.Delay(1000);
+
                 // Запуск второго процесса
                 using (Process process = new Process())
                 {
@@ -100,6 +102,8 @@ namespace BarasToolba
                     
                 }
 
+                await Task.Delay(1000);
+
                 using (Process process = new Process())
                 {
                     process.StartInfo.FileName = FiddlerCore.autoQFolderPath;
@@ -108,6 +112,9 @@ namespace BarasToolba
                     await Task.Run(() => process.WaitForExit()); // Асинхронное ожидание завершения
                     
                 }
+
+                await Task.Delay(1000);
+
                 FiddlerCore.UpdateCur();
             }
             catch (Exception ex)
