@@ -49,11 +49,27 @@ def ActiveQuest(headers, host):
     resp = requests.get(url=url, headers=headers, verify=False)
 
     Rjson = resp.json()
+    print(f"4:\n{Rjson}")
 
     survivor = 0
-    killer = 0
+    surv = False
+    s_c = True
 
-    if Rjson.get("survivorActiveNode"):
+    killer = 0
+    kill = False
+    k_c = True
+
+    if Rjson.get("survivorClaimableActiveNode"):
+        refactroring = {
+            "level": Rjson["survivorClaimableActiveNode"]["level"],
+            "nodeId": Rjson["survivorClaimableActiveNode"]["nodeId"],
+            "storyId": Rjson["survivorClaimableActiveNode"]["storyId"]
+        }
+        survivor = refactroring
+        surv = True
+        CompleteQuest(survivor, "survivor", headers, host)
+
+    elif Rjson.get("survivorActiveNode"):
         refactroring = {
             "level": Rjson["survivorActiveNode"]["level"],
             "nodeId": Rjson["survivorActiveNode"]["nodeId"],
@@ -61,9 +77,19 @@ def ActiveQuest(headers, host):
         }
         survivor = refactroring
     else:
-        survivor = 0
+        s_c = False
 
-    if Rjson.get("killerActiveNode"):
+    if Rjson.get("killerClaimableActiveNode"):
+        refactroring = {
+            "level": Rjson["killerClaimableActiveNode"]["level"],
+            "nodeId": Rjson["killerClaimableActiveNode"]["nodeId"],
+            "storyId": Rjson["killerClaimableActiveNode"]["storyId"]
+        }
+        killer = refactroring
+        kill = True
+        CompleteQuest(killer, "killer", headers, host)
+
+    elif Rjson.get("killerActiveNode"):
         refactroring = {
             "level": Rjson["killerActiveNode"]["level"],
             "nodeId": Rjson["killerActiveNode"]["nodeId"],
@@ -71,10 +97,51 @@ def ActiveQuest(headers, host):
         }
         killer = refactroring
     else:
-        killer = 0
+        k_c = False
 
-    return survivor, killer
+    print(survivor, surv, killer, kill, s_c, k_c)
+    return survivor, surv, killer, kill, s_c, k_c
 
+def CompleteQuest(questData, role, h, host):
+    jsonBody = {
+        "node": questData,
+        "role": role
+    }
+
+    url = f"https://{host}/api/v1/archives/stories/update/active-node-v3"
+
+    resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
+    print(f"Quest Complete:\n{resp.json()}")
+
+def DeactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
+    if not surv and s_c:
+        jsonBody = {
+            "node": survivor,
+            "role": "survivor"
+        }
+
+        url = f"https://{host}/api/v1/archives/stories/update/active-node-v3"
+
+        resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
+        print(f"Deactivate:\n{resp.json()}")
+
+        if resp.status_code == 200:
+            return
+
+    if not kill and k_c:
+        jsonBody = {
+            "node": killer,
+            "role": "killer"
+        }
+
+        url = f"https://{host}/api/v1/archives/stories/update/active-node-v3"
+
+        resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
+        print(f"Deactivate:\n{resp.json()}")
+
+        if resp.status_code == 200:
+            return
+    return
 
 def CreateNextQuestList(s, k, headers, host):
     xs = []
@@ -83,6 +150,7 @@ def CreateNextQuestList(s, k, headers, host):
     for Tome in Tomes:
         url = f"https://{host}/api/v1/archives/stories/get/story?storyId={Tome}"
         resp = requests.get(url=url, headers=headers, verify=False)
+        print(f"3:\n{resp.json()}")
         Rjson = resp.json()["listOfNodes"]
         for node in Rjson:
             if node["status"] == "open":
@@ -95,10 +163,8 @@ def CreateNextQuestList(s, k, headers, host):
                     xs.append(node)
     return xs
 
-def PickNewQuest(s, k, All_Quests, headers, host):
-    if s != 0 and k != 0:
-        return
-    if s == 0:
+def PickNewQuest(All_Quests, headers, host, su, ki):
+    if not su:
         for x in All_Quests:
             jsonBody = {
                 "node": x,
@@ -108,11 +174,12 @@ def PickNewQuest(s, k, All_Quests, headers, host):
             url = f"https://{host}/api/v1/archives/stories/update/active-node-v3"
 
             resp = requests.post(url=url, headers=headers, verify=False, json=jsonBody)
+            print(f"1:\n{resp.json()}")
 
             if resp.status_code == 200:
                 return
 
-    if k == 0:
+    if not ki:
         for x in All_Quests:
             jsonBody = {
                 "node": x,
@@ -122,6 +189,7 @@ def PickNewQuest(s, k, All_Quests, headers, host):
             url = f"https://{host}/api/v1/archives/stories/update/active-node-v3"
 
             resp = requests.post(url=url, headers=headers, verify=False, json=jsonBody)
+            print(f"2:\n{resp.json()}")
 
             if resp.status_code == 200:
                 return
