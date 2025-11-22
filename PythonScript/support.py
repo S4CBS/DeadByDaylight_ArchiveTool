@@ -1,3 +1,5 @@
+import time
+
 from importS import *
 
 # Paths
@@ -113,9 +115,6 @@ def CompleteQuest(questData, role, h, host):
     resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
     print(f"Quest Complete:\n{resp.json()}")
 
-async def AsyncWait(n):
-    await asyncio.sleep(n)
-
 def ReactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
     status = False
     if not surv and s_c:
@@ -128,8 +127,6 @@ def ReactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
 
         resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
         print(f"Deactivate:\n{resp.json()}")
-
-        asyncio.run(AsyncWait(1))
 
         resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
         print(f"Activate:\n{resp.json()}")
@@ -148,8 +145,6 @@ def ReactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
 
         resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
         print(f"Deactivate:\n{resp.json()}")
-
-        asyncio.run(AsyncWait(1))
 
         resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
         print(f"Activate:\n{resp.json()}")
