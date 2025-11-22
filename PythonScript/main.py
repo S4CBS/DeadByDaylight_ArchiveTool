@@ -1,5 +1,4 @@
 from support import *
-import asyncio
 
 async def main():
     try:
@@ -9,11 +8,11 @@ async def main():
         s_id, s, k_id, k, s_c, k_c = ActiveQuest(headers, host)
         await asyncio.sleep(1)  # задержка 1 секунды
 
-        DeactiveQuest(headers, host, s_id, s, k_id, k, s_c, k_c)
+        status = ReactiveQuest(headers, host, s_id, s, k_id, k, s_c, k_c)
         await asyncio.sleep(1)  # задержка 1 секунды
 
-        s_id, s, k_id, k, s_c, k_c = ActiveQuest(headers, host)
-        await asyncio.sleep(1)  # задержка 1 секунды
+        if status:
+            return
 
         all_quests = CreateNextQuestList(s_id, k_id, headers, host)
         await asyncio.sleep(1)  # задержка 1 секунды

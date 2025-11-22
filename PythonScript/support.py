@@ -113,7 +113,11 @@ def CompleteQuest(questData, role, h, host):
     resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
     print(f"Quest Complete:\n{resp.json()}")
 
-def DeactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
+async def AsyncWait(n):
+    await asyncio.sleep(n)
+
+def ReactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
+    status = False
     if not surv and s_c:
         jsonBody = {
             "node": survivor,
@@ -125,8 +129,14 @@ def DeactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
         resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
         print(f"Deactivate:\n{resp.json()}")
 
+        asyncio.run(AsyncWait(1))
+
+        resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
+        print(f"Activate:\n{resp.json()}")
+
         if resp.status_code == 200:
-            return
+            status = True
+            return status
 
     if not kill and k_c:
         jsonBody = {
@@ -139,9 +149,15 @@ def DeactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
         resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
         print(f"Deactivate:\n{resp.json()}")
 
+        asyncio.run(AsyncWait(1))
+
+        resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
+        print(f"Activate:\n{resp.json()}")
+
         if resp.status_code == 200:
-            return
-    return
+            status = True
+            return status
+    return status
 
 def CreateNextQuestList(s, k, headers, host):
     xs = []
