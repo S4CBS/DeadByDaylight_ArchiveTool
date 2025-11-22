@@ -54,44 +54,45 @@ def ActiveQuest(headers, host):
     print(f"4:\n{Rjson}")
 
     survivor = 0
-    surv = False
-    s_c = True
+    s_c = False # Квест есть
 
     killer = 0
-    kill = False
-    k_c = True
+    k_c = False # Квест есть
 
-    if Rjson.get("survivorClaimableActiveNode"):
+    if Rjson.get("survivorClaimableActiveNode") is not None:
         refactroring = {
             "level": Rjson["survivorClaimableActiveNode"]["level"],
             "nodeId": Rjson["survivorClaimableActiveNode"]["nodeId"],
             "storyId": Rjson["survivorClaimableActiveNode"]["storyId"]
         }
         survivor = refactroring
-        surv = True
         CompleteQuest(survivor, "survivor", headers, host)
 
-    elif Rjson.get("survivorActiveNode"):
+        s_c = True
+
+    elif Rjson.get("survivorActiveNode") is not None:
         refactroring = {
             "level": Rjson["survivorActiveNode"]["level"],
             "nodeId": Rjson["survivorActiveNode"]["nodeId"],
             "storyId": Rjson["survivorActiveNode"]["storyId"]
         }
         survivor = refactroring
-    else:
-        s_c = False
 
-    if Rjson.get("killerClaimableActiveNode"):
+    else:
+        s_c = True
+
+    if Rjson.get("killerClaimableActiveNode") is not None:
         refactroring = {
             "level": Rjson["killerClaimableActiveNode"]["level"],
             "nodeId": Rjson["killerClaimableActiveNode"]["nodeId"],
             "storyId": Rjson["killerClaimableActiveNode"]["storyId"]
         }
         killer = refactroring
-        kill = True
         CompleteQuest(killer, "killer", headers, host)
 
-    elif Rjson.get("killerActiveNode"):
+        k_c = True # Нет квеста вообще
+
+    elif Rjson.get("killerActiveNode") is not None:
         refactroring = {
             "level": Rjson["killerActiveNode"]["level"],
             "nodeId": Rjson["killerActiveNode"]["nodeId"],
@@ -99,10 +100,10 @@ def ActiveQuest(headers, host):
         }
         killer = refactroring
     else:
-        k_c = False
+        k_c = True # Нет квеста вообще
 
-    print(survivor, surv, killer, kill, s_c, k_c)
-    return survivor, surv, killer, kill, s_c, k_c
+    print(survivor, killer, s_c, k_c)
+    return survivor, killer, s_c, k_c
 
 def CompleteQuest(questData, role, h, host):
     jsonBody = {
@@ -115,9 +116,9 @@ def CompleteQuest(questData, role, h, host):
     resp = requests.post(url=url, headers=h, verify=False, json=jsonBody)
     print(f"Quest Complete:\n{resp.json()}")
 
-def ReactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
+def ReactiveQuest(h, host, survivor, killer, s_c, k_c):
     status = False
-    if not surv and s_c:
+    if not s_c: # Квест есть
         jsonBody = {
             "node": survivor,
             "role": "survivor"
@@ -135,7 +136,7 @@ def ReactiveQuest(h, host, survivor, surv, killer, kill, s_c, k_c):
             status = True
             return status
 
-    if not kill and k_c:
+    if not k_c: # Квест есть
         jsonBody = {
             "node": killer,
             "role": "killer"
@@ -175,7 +176,7 @@ def CreateNextQuestList(s, k, headers, host):
     return xs
 
 def PickNewQuest(All_Quests, headers, host, su, ki):
-    if not su:
+    if su:
         for x in All_Quests:
             jsonBody = {
                 "node": x,
@@ -190,7 +191,7 @@ def PickNewQuest(All_Quests, headers, host, su, ki):
             if resp.status_code == 200:
                 return
 
-    if not ki:
+    if ki:
         for x in All_Quests:
             jsonBody = {
                 "node": x,

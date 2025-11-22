@@ -5,10 +5,10 @@ async def main():
         headers, host = getHeaders()
         await asyncio.sleep(1)  # задержка 1 секунды
 
-        s_id, s, k_id, k, s_c, k_c = ActiveQuest(headers, host)
+        s_id, k_id, s_c, k_c = ActiveQuest(headers, host)
         await asyncio.sleep(1)  # задержка 1 секунды
 
-        status = ReactiveQuest(headers, host, s_id, s, k_id, k, s_c, k_c)
+        status = ReactiveQuest(headers, host, s_id, k_id, s_c, k_c)
         await asyncio.sleep(1)  # задержка 1 секунды
 
         if status:
@@ -17,7 +17,7 @@ async def main():
         all_quests = CreateNextQuestList(s_id, k_id, headers, host)
         await asyncio.sleep(1)  # задержка 1 секунды
 
-        PickNewQuest(all_quests, headers, host, s, k)
+        PickNewQuest(all_quests, headers, host, s_c, k_c)
     except Exception:
         pass
 
